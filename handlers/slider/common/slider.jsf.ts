@@ -115,7 +115,7 @@ const jsfHandlerCommonSliderJsfDefinition: JsfDefinition = {
 const formDefinitionTransform = (x: any, prop: JsfProp) => {
   // x.schema.properties.values.items.properties.value.type = prop.type
   return x;
-}
+};
 
 export const jsfHandlerCommonSliderCompatibility: HandlerCompatibilityInterface = {
 
@@ -131,4 +131,4 @@ export const jsfHandlerCommonSliderCompatibility: HandlerCompatibilityInterface 
       formDefinitionTransform
     }
   ]
-}
+};

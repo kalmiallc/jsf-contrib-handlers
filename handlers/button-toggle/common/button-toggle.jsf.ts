@@ -126,9 +126,9 @@ const jsfHandlerCommonButtonToggleJsfDefinition: JsfDefinition = {
 } as any;
 
 const formDefinitionTransform = (x: any, prop: JsfProp) => {
-  x.schema.properties.values.items.properties.value.type = prop.type
+  x.schema.properties.values.items.properties.value.type = prop.type;
   return x;
-}
+};
 
 export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInterface = {
 
@@ -146,4 +146,4 @@ export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInte
       formDefinitionTransform // <- optional can also be direct: (x, p) => { return x }
     }
   ]
-}
+};

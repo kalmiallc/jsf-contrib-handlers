@@ -52,7 +52,7 @@ const jsfHandlerCommonFileUploadTokenJsfDefinition: JsfDefinition = {
 const formDefinitionTransform = (x: any, prop: JsfProp) => {
   // x.schema.properties.values.items.properties.value.type = prop.type
   return x;
-}
+};
 
 export const jsfHandlerCommonFileUploadTokenCompatibility: HandlerCompatibilityInterface = {
 
@@ -64,4 +64,4 @@ export const jsfHandlerCommonFileUploadTokenCompatibility: HandlerCompatibilityI
       formDefinitionTransform
     }
   ]
-}
+};

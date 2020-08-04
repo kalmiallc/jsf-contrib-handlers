@@ -43,7 +43,7 @@ const jsfHandlerCommonCodeEditorJsfDefinition: JsfDefinition = {
 const formDefinitionTransform = (x: any, prop: JsfProp) => {
   // x.schema.properties.values.items.properties.value.type = prop.type
   return x;
-}
+};
 
 export const jsfHandlerCommonCodeEditorCompatibility: HandlerCompatibilityInterface = {
 
@@ -54,4 +54,4 @@ export const jsfHandlerCommonCodeEditorCompatibility: HandlerCompatibilityInterf
       type: 'string'
     }
   ]
-}
+};

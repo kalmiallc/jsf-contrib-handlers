@@ -1,6 +1,6 @@
 import { isI18nObject, JsfBasicHandlerBuilder, JsfPropBuilderString, JsfRegister, JsfTranslatableMessage } from '@kalmia/jsf-common-es2015';
 import { RadioMessages }                                                                                   from './messages';
-import { jsfHandlerCommonRadioCompatibility }                                                               from './radio.jsf'
+import { jsfHandlerCommonRadioCompatibility }                                                               from './radio.jsf';
 
 export interface RadioItem {
   value: any;

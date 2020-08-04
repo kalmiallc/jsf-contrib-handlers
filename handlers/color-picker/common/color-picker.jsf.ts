@@ -1,6 +1,6 @@
 import { JsfDefinition, HandlerCompatibilityInterface } from '@kalmia/jsf-common-es2015';
 import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
-import { ONCLICK_JSF_SCHEMA, createOnClickJsfLayout } from '@kalmia/jsf-common-es2015/lib/jsf-for-jsf/util/on-click-interface-jsf-schema'
+import { ONCLICK_JSF_SCHEMA, createOnClickJsfLayout } from '@kalmia/jsf-common-es2015/lib/jsf-for-jsf/util/on-click-interface-jsf-schema';
 
 const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
   schema: {
@@ -423,7 +423,7 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
 const formDefinitionTransform = (x: any, prop: JsfProp) => {
   // x.schema.properties.values.items.properties.value.type = prop.type
   return x;
-}
+};
 
 export const jsfHandlerCommonColorPickerCompatibility: HandlerCompatibilityInterface = {
 
@@ -435,4 +435,4 @@ export const jsfHandlerCommonColorPickerCompatibility: HandlerCompatibilityInter
       formDefinitionTransform
     }
   ]
-}
+};
