@@ -1,0 +1,66 @@
+<div class="handler-common-file-upload-token text-center jsf-animatable" [ngClass]="layoutSchema?.htmlClass || ''">
+
+  <div ng2FileDrop
+       *ngIf = "variant === 'area'"
+       [ngClass]="'py-7 px-5 text-center centerVertical border border-style-dashed rounded areaBg __border-color--grey-dark'"
+       [jsfHoverClass]="hoverClass"
+       (fileOver)="onFileOver($event)"
+       [uploader]="uploader" [style.height]="height || '450px'"
+       #fileArea
+       (click)="clickArea()">
+
+    <div *ngIf="hasFile === false" class="row d-flex justify-content-center root">
+
+      <div class="col-12 text-center">
+        <mat-icon class="upload w-100 text-center">note_add</mat-icon>
+      </div>
+      <div class='col-12 text-select text-color'>{{ i18n('Select Files to Upload') }}</div>
+      <div class='col-12 text-muted'>{{ i18n('or Drag and Drop Files') }}</div>
+
+      <input [hidden]='true' #fileInput type="file" ng2FileSelect [uploader]="uploader"
+             class="m-1 mat-flat-button"
+             [attr.accept]="allowedExtensionsString"/>
+
+    </div>
+    <div *ngIf="hasFile === true" class="row p-2 root itemBg text-center text-color rounded">
+
+      <div class='icon m-1 __color--primary-contrast __background-color--primary'>{{fileExtension}}</div>
+
+      <div class='col ml-1 text-left'>
+
+        <div class='row'>
+          <div class='col'>
+            <div class='row'>
+              <div class='col px-1 font-weight-bold'>{{fileName}}</div>
+              <mat-icon [hidden]="uploading" class="check">check_circle</mat-icon>
+            </div>
+
+            <div class='row px-1'>{{fileSize}}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <mat-progress-bar mode="determinate" value="{{uploader.progress}}">
+          </mat-progress-bar>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div
+  *ngIf = "variant === 'button'">
+    <button
+    mat-flat-button
+    color="primary"
+    (click)="clickArea()">
+    {{title}}</button>
+    <input [hidden]='true' #fileInput type="file" ng2FileSelect [uploader]="uploader"
+             class="m-1 mat-flat-button"
+             [attr.accept]="allowedExtensionsString"/>
+  </div>
+
+  <jsf-error-messages *ngIf="hasErrors" [messages]="interpolatedErrors"></jsf-error-messages>
+</div>

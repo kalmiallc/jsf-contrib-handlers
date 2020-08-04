@@ -1,0 +1,403 @@
+$swift-ease-out-duration:        400ms !default;
+$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+
+
+.button-toggle-wrapper {
+
+
+  // Basic
+  &.basic {
+    font-size:  14px;
+    margin-top: 2px;
+
+    &.disabled {
+      cursor: not-allowed;
+
+      * {
+        pointer-events: none;
+      }
+    }
+
+    .items-container {
+      display:   flex;
+      flex-wrap: wrap;
+
+      // Direction: Row
+      //
+      &.direction-row {
+        flex-direction: row;
+
+        .item {
+          // First item
+          &:first-child {
+            border-top-right-radius:    0 !important;
+            border-bottom-right-radius: 0 !important;
+
+            &:not(.hover) {
+              border-right: none;
+            }
+
+            &.hover {
+              margin-right: -2px;
+              z-index:      10;
+            }
+          }
+
+          // Last item
+          &:last-child {
+            border-top-left-radius:    0 !important;
+            border-bottom-left-radius: 0 !important;
+          }
+
+          // Middle items
+          &:not(:first-child):not(:last-child) {
+            border-radius: 0 !important;
+
+            &:not(.hover) {
+              border-right: none;
+            }
+
+            &.hover {
+              margin-right: -2px;
+              z-index:      10;
+            }
+          }
+        }
+      }
+
+      // Direction: Column
+      &.direction-column {
+        flex-direction: column;
+
+        .item {
+          // First item
+          &:first-child {
+            border-bottom-left-radius:  0 !important;
+            border-bottom-right-radius: 0 !important;
+
+            &:not(.hover) {
+              border-bottom: none;
+            }
+
+            &.hover {
+              // margin-bottom: -2px; Do not set margin or else the control's height changes and it looks like it "jumps"
+              z-index: 10;
+            }
+          }
+
+          // Last item
+          &:last-child {
+            border-top-left-radius:  0 !important;
+            border-top-right-radius: 0 !important;
+          }
+
+          // Middle items
+          &:not(:first-child):not(:last-child) {
+            border-radius: 0 !important;
+
+            &:not(.hover) {
+              border-bottom: none;
+            }
+
+            &.hover {
+              // margin-bottom: -2px; Do not set margin or else the control's height changes and it looks like it "jumps"
+              z-index: 10;
+            }
+          }
+        }
+      }
+
+      // Common
+      .item {
+        position:        relative;
+        flex-grow:       1;
+        flex-basis:      0;
+        padding:         5px 10px;
+        border:          2px solid;
+        display:         flex;
+        justify-content: center;
+        cursor:          pointer;
+        overflow:        hidden;
+        min-height:      38px;
+        transition:      border-color $swift-ease-out-duration $swift-ease-out-timing-function;
+
+        .item-label {
+          position:    relative;
+          text-align:  center;
+          display:     inline;
+          align-self:  center;
+          font-weight: 700;
+          transition:  color $swift-ease-out-duration $swift-ease-out-timing-function;
+        }
+
+        .check-mark {
+          position:        absolute;
+          right:           -22px;
+          top:             50%;
+          transform:       translateX(3px) translateY(-50%);
+          width:           16px;
+          height:          16px;
+          border-radius:   50%;
+          display:         flex;
+          justify-content: center;
+          align-items:     center;
+          opacity:         0;
+          transition:      opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                           transform $swift-ease-out-duration $swift-ease-out-timing-function;
+
+          &.visible {
+            transform: translateY(-50%);
+            opacity:   1;
+          }
+
+          mat-icon {
+            height:      10px;
+            width:       10px;
+            font-size:   10px;
+            font-weight: bold;
+          }
+        }
+
+
+        &.disabled {
+          cursor:  default !important;
+          opacity: 0.7;
+
+          &:hover {
+            border-color: #f0f0f0 !important;
+          }
+
+          .item-label {
+            color: gray !important;
+          }
+
+          .check-mark {
+            background-color: gray !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Tile
+  &.tile {
+    width:   100%;
+    padding: 8px 0;
+
+    .items-container {
+      display:         flex;
+      flex-wrap:       wrap;
+      flex-direction:  row;
+      justify-content: center;
+
+      .button-toggle-tile {
+        position: relative;
+        cursor:   pointer;
+        width:    132px;
+
+        &:not(.selected) {
+          .selection-border {
+            border-color: transparent !important;
+          }
+        }
+
+        &.hover {
+          .icon-container {
+            box-shadow: 0 10px 20px -2px rgba(0, 0, 0, 0.19)
+          }
+        }
+
+        .inner-tile-container {
+          padding: 0 12%;
+        }
+
+        .icon-container {
+          width:      100%;
+          position:   relative;
+          overflow:   visible;
+          transition: box-shadow $swift-ease-out-duration $swift-ease-out-timing-function;
+
+          &:before {
+            content:     '';
+            display:     block;
+            padding-top: 100%; /* Ratio of 1:1*/
+          }
+
+          .icon {
+            position:        absolute;
+            left:            0;
+            top:             0;
+            right:           0;
+            bottom:          0;
+            box-sizing:      border-box;
+            display:         flex;
+            justify-content: center;
+            background-size: cover;
+          }
+
+          .selection-border {
+            position:       absolute;
+            left:           0;
+            top:            0;
+            right:          0;
+            bottom:         0;
+            pointer-events: none;
+
+            border-width:   3px;
+            border-style:   solid;
+
+            transition:     border-color $swift-ease-out-duration $swift-ease-out-timing-function;
+          }
+
+          .check-mark {
+            position:        absolute;
+            right:           -7px;
+            top:             -7px;
+            width:           24px;
+            height:          24px;
+            transform:       scale(.75);
+            border-radius:   50%;
+            display:         flex;
+            justify-content: center;
+            align-items:     center;
+            opacity:         0;
+            transition:      opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                             transform $swift-ease-out-duration $swift-ease-out-timing-function;
+
+            &.visible {
+              opacity:   1;
+              transform: scale(1);
+            }
+
+            mat-icon {
+              height:      14px;
+              width:       14px;
+              font-size:   14px;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .label-container {
+          text-align:      center;
+          font-size:       14px;
+          width:           100%;
+          padding:         5px 0;
+          display:         flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  // Tile Big
+  &.tile-large {
+    width:   100%;
+    padding: 8px 0;
+
+    .items-container {
+      display:         flex;
+      flex-wrap:       wrap;
+      flex-direction:  row;
+      justify-content: center;
+
+      .button-toggle-tile-large {
+        position: relative;
+        cursor:   pointer;
+        width:    300px;
+
+        &:not(.selected) {
+          .selection-border {
+            border-color: transparent !important;
+          }
+        }
+
+        &.hover {
+          .icon-container {
+            box-shadow: 0 10px 20px -2px rgba(0, 0, 0, 0.19)
+          }
+        }
+
+        .inner-tile-large-container {
+          padding: 0 12%;
+        }
+
+        .icon-container {
+          width:      100%;
+          position:   relative;
+          overflow:   visible;
+          transition: box-shadow $swift-ease-out-duration $swift-ease-out-timing-function;
+
+          &:before {
+            content:     '';
+            display:     block;
+            padding-top: 100%; /* Ratio of 1:1*/
+          }
+
+          .icon {
+            position:        absolute;
+            left:            0;
+            top:             0;
+            right:           0;
+            bottom:          0;
+            box-sizing:      border-box;
+            display:         flex;
+            justify-content: center;
+            background-size: cover;
+          }
+
+          .selection-border {
+            position:       absolute;
+            left:           0;
+            top:            0;
+            right:          0;
+            bottom:         0;
+            pointer-events: none;
+
+            border-width:   3px;
+            border-style:   solid;
+
+            transition:     border-color $swift-ease-out-duration $swift-ease-out-timing-function;
+          }
+
+          .check-mark {
+            position:        absolute;
+            right:           -7px;
+            top:             -7px;
+            width:           24px;
+            height:          24px;
+            transform:       scale(.75);
+            border-radius:   50%;
+            display:         flex;
+            justify-content: center;
+            align-items:     center;
+            opacity:         0;
+            transition:      opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                             transform $swift-ease-out-duration $swift-ease-out-timing-function;
+
+            &.visible {
+              opacity:   1;
+              transform: scale(1);
+            }
+
+            mat-icon {
+              height:      14px;
+              width:       14px;
+              font-size:   14px;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .label-container {
+          text-align:      center;
+          font-size:       14px;
+          width:           100%;
+          padding:         5px 0;
+          display:         flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

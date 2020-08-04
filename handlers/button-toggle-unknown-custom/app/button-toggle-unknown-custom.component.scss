@@ -1,0 +1,213 @@
+$swift-ease-out-duration: 400ms !default;
+$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+
+
+.button-toggle-wrapper {
+
+  // Basic
+  &.basic {
+    font-size: 14px;
+
+    &.disabled {
+      cursor: not-allowed;
+
+      * {
+        pointer-events: none;
+      }
+    }
+
+    .items-container {
+      display:   flex;
+      flex-wrap: wrap;
+
+      // Direction: Row
+      //
+      &.direction-row {
+        flex-direction: row;
+
+        .item {
+          // First item
+          &:first-child {
+            border-top-right-radius:    0 !important;
+            border-bottom-right-radius: 0 !important;
+
+            &:not(.hover) {
+              border-right: none;
+            }
+
+            &.hover {
+              margin-right: -2px;
+              z-index:      10;
+            }
+          }
+
+          // Last item
+          &:last-child {
+            border-top-left-radius:    0 !important;
+            border-bottom-left-radius: 0 !important;
+          }
+
+          // Middle items
+          &:not(:first-child):not(:last-child) {
+            border-radius: 0 !important;
+
+            &:not(.hover) {
+              border-right: none;
+            }
+
+            &.hover {
+              margin-right: -2px;
+              z-index:      10;
+            }
+          }
+        }
+      }
+
+      // Direction: Column
+      &.direction-column {
+        flex-direction: column;
+
+        .item {
+          // First item
+          &:first-child {
+            border-bottom-left-radius:  0 !important;
+            border-bottom-right-radius: 0 !important;
+
+            &:not(.hover) {
+              border-bottom: none;
+            }
+
+            &.hover {
+              // margin-bottom: -2px; Do not set margin or else the control's height changes and it looks like it "jumps"
+              z-index: 10;
+            }
+          }
+
+          // Last item
+          &:last-child {
+            border-top-left-radius:  0 !important;
+            border-top-right-radius: 0 !important;
+          }
+
+          // Middle items
+          &:not(:first-child):not(:last-child) {
+            border-radius: 0 !important;
+
+            &:not(.hover) {
+              border-bottom: none;
+            }
+
+            &.hover {
+              // margin-bottom: -2px; Do not set margin or else the control's height changes and it looks like it "jumps"
+              z-index: 10;
+            }
+          }
+        }
+      }
+
+      // Common
+      .item {
+        position:        relative;
+        flex-grow:       1;
+        flex-basis:      0;
+        padding:         5px 10px;
+        border:          2px solid;
+        display:         flex;
+        justify-content: center;
+        cursor:          pointer;
+        overflow:        hidden;
+        min-height:      38px;
+        transition:      border-color .3s cubic-bezier(.25, .8, .25, 1);
+
+        &.no-vertical-padding {
+          padding-top:    0;
+          padding-bottom: 0;
+        }
+
+        .item-label {
+          position:    relative;
+          text-align:  center;
+          display:     inline;
+          align-self:  center;
+          font-weight: 700;
+          transition:  color .3s cubic-bezier(.25, .8, .25, 1);
+        }
+
+        .check-mark {
+          position:        absolute;
+          right:           -22px;
+          top:             50%;
+          transform:       translateX(3px) translateY(-50%);
+          width:           16px;
+          height:          16px;
+          border-radius:   50%;
+          display:         flex;
+          justify-content: center;
+          align-items:     center;
+          opacity:         0;
+          transition:      opacity $swift-ease-out-duration $swift-ease-out-timing-function,
+                           transform $swift-ease-out-duration $swift-ease-out-timing-function;
+
+          &.visible {
+            transform: translateY(-50%);
+            opacity:   1;
+          }
+
+          mat-icon {
+            height:      10px;
+            width:       10px;
+            font-size:   10px;
+            font-weight: bold;
+          }
+        }
+
+        .custom-value-container {
+          width:           100%;
+          height:          100%;
+          display:         flex;
+          align-items:     center;
+          justify-content: space-between;
+
+          input {
+            width: 0; // Firefox?
+            flex-grow: 1;
+          }
+
+          .stepper-button {
+            height:      80%; // Makes the area easier to click
+            display:     flex;
+            align-items: center;
+
+            &.decrement {
+              margin-left: -5px;
+            }
+
+            &.increment {
+              margin-right: -5px;
+            }
+
+            mat-icon {
+              width:       1em;
+              height:      1em;
+              font-size:   1rem;
+              font-weight: 700;
+            }
+          }
+        }
+
+        &:not(.selected) {
+          .custom-value-container {
+            input {
+              opacity: .38;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.mat-form-field-subscript-wrapper {
+  position:   relative;
+  text-align: center;
+}

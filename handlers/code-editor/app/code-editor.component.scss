@@ -1,0 +1,9 @@
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/material';
+
+// Addons
+@import '~codemirror/addon/dialog/dialog';
+@import '~codemirror/addon/fold/foldgutter';
+@import '~codemirror/addon/hint/show-hint';
+@import '~codemirror/addon/lint/lint';
+@import '~codemirror/addon/scroll/simplescrollbars';

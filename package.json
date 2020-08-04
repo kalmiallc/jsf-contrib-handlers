@@ -1,0 +1,16 @@
+{
+  "name": "@kalmia/jsf-handlers-common",
+  "version": "1.0.0",
+  "authors": "Tilen Tomakić",
+  "contributors": "Matej Gorjanc, Sašo Bizjak",
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "@ctrl/ngx-codemirror": "^3.1.3",
+    "codemirror": "^5.55.0",
+    "ng2-file-upload": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/codemirror": "^0.0.96",
+    "@types/node": "^10.12.1"
+  }
+}

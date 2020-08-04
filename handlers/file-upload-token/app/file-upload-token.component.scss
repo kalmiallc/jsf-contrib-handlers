@@ -1,0 +1,66 @@
+.root {
+    width: 100%;
+}
+
+.progressbar {
+    width: 70%;
+    text-align: center;
+}
+
+.check {
+    color: green;
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    padding-top: 11px;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.text-color {
+    color: black !important;
+}
+
+.text-select {
+    font-size: 20px;
+}
+
+.upload {
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+}
+
+.areaBg {
+    background-color: rgba(230, 230, 230, 0.6);
+}
+
+.itemBg {
+    background-color: rgba(230, 230, 230, 1);
+}
+
+.centerVertical {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fade-in {
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+/* Default class applied to drop zones on over */
+.nv-file-over {
+    border: dotted 6px #00B6A7;
+}
+
+.nv-file-over > .drop-zone-text {
+    background-color: #00B6A7;
+    color: #FFF;
+}
