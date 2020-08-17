@@ -145,6 +145,9 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 export const jsfHandlerCommonButtonToggleAllNoneCustomCompatibility: HandlerCompatibilityInterface = {
 
   formDefinition: jsfHandlerCommonButtonToggleAllNoneCustomJsfDefinition,
+  title: 'Button toggle all/none',
+  icon: 'handler-icons/button-toggle-all-none-custom.svg',
+  category: 'Common',
 
   compatibleWith: [
     {

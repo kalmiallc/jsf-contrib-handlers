@@ -57,6 +57,9 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 export const jsfHandlerCommonFileUploadTokenCompatibility: HandlerCompatibilityInterface = {
 
   formDefinition: jsfHandlerCommonFileUploadTokenJsfDefinition,
+  title: 'File upload',
+  icon: 'handler-icons/file-upload-token.svg',
+  category: 'Common',
 
   compatibleWith: [
     {

@@ -145,6 +145,9 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 export const jsfHandlerCommonButtonToggleUnknownCustomCompatibility: HandlerCompatibilityInterface = {
 
   formDefinition: jsfHandlerCommonButtonToggleUnknownCustomJsfDefinition,
+  title: 'Button toggle unknown',
+  icon: 'handler-icons/button-toggle-unknown.svg',
+  category: 'Common',
 
   compatibleWith: [
     {

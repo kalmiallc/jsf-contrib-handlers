@@ -1,5 +1,5 @@
-import { JsfDefinition, HandlerCompatibilityInterface } from '@kalmia/jsf-common-es2015';
-import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
+import { HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
+import { JsfProp }                                      from '@kalmia/jsf-common-es2015/lib/schema';
 
 const jsfHandlerCommonCodeEditorJsfDefinition: JsfDefinition = {
   schema: {
@@ -48,6 +48,9 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 export const jsfHandlerCommonCodeEditorCompatibility: HandlerCompatibilityInterface = {
 
   formDefinition: jsfHandlerCommonCodeEditorJsfDefinition,
+  title: 'Code editor',
+  icon: 'handler-icons/code-editor.svg',
+  category: 'Common',
 
   compatibleWith: [
     {

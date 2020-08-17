@@ -120,6 +120,9 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 export const jsfHandlerCommonSliderCompatibility: HandlerCompatibilityInterface = {
 
   formDefinition: jsfHandlerCommonSliderJsfDefinition,
+  title: 'Slider',
+  icon: 'handler-icons/slider.svg',
+  category: 'Common',
 
   compatibleWith: [
     {

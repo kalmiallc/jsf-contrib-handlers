@@ -345,7 +345,7 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                               createOnClickJsfLayout('colorPickerItems[].zoomIcon.onClick')
                             ]
                           }
-                          
+
                         ]
                       }
                     ]
@@ -428,6 +428,9 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 export const jsfHandlerCommonColorPickerCompatibility: HandlerCompatibilityInterface = {
 
   formDefinition: jsfHandlerCommonColorPickerJsfDefinition,
+  title: 'Color picker',
+  icon: 'handler-icons/color-picker.svg',
+  category: 'Common',
 
   compatibleWith: [
     {

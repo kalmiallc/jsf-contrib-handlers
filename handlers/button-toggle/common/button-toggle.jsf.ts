@@ -126,13 +126,16 @@ const jsfHandlerCommonButtonToggleJsfDefinition: JsfDefinition = {
 } as any;
 
 const formDefinitionTransform = (x: any, prop: JsfProp) => {
-  x.schema.properties.values.items.properties.value.type = prop.type;
+  x.schema.properties.values.items.properties.value.type = prop.type
   return x;
 };
 
 export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInterface = {
 
   formDefinition: jsfHandlerCommonButtonToggleJsfDefinition,
+  title: 'Button Toggle',
+  icon: 'handler-icons/button-toggle.svg',
+  category: 'Common',
 
   compatibleWith: [
     {
