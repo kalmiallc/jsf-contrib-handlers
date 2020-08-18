@@ -135,7 +135,7 @@ const jsfHandlerCommonDropdownJsfDefinition: JsfDefinition = {
 } as any;
 
 const formDefinitionTransform = (x: any, prop: JsfProp) => {
-  x.schema.properties.values.items.properties.value.type = prop.type
+  x.schema.properties.values.items.properties.value.type = prop.type;
   return x;
 };
 
