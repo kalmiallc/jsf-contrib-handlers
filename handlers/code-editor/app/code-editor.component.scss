@@ -1,9 +1,52 @@
-@import '~codemirror/lib/codemirror';
-@import '~codemirror/theme/material';
+$swift-ease-out-duration: 400ms;
+$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
 
-// Addons
-@import '~codemirror/addon/dialog/dialog';
-@import '~codemirror/addon/fold/foldgutter';
-@import '~codemirror/addon/hint/show-hint';
-@import '~codemirror/addon/lint/lint';
-@import '~codemirror/addon/scroll/simplescrollbars';
+.handler-common-code-editor {
+  overflow: hidden;
+}
+
+.handler-common-code-editor-preview-area {
+  position:         relative;
+
+  width:            100%;
+  height:           100%;
+  overflow:         hidden;
+
+  background-color: #222222;
+  color: white;
+
+  jsf-icon {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+
+    opacity: .5;
+    transition: opacity $swift-ease-out-duration $swift-ease-out-timing-function;
+  }
+
+  .handler-common-code-editor-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: white;
+    opacity: 0;
+
+    transition: opacity $swift-ease-out-duration $swift-ease-out-timing-function;
+  }
+
+  &:hover {
+    .handler-common-code-editor-overlay {
+      opacity: .2;
+    }
+
+    jsf-icon {
+      opacity: 1;
+    }
+  }
+
+}
+
+

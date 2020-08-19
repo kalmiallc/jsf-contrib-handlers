@@ -2,31 +2,14 @@ import { isI18nObject, JsfBasicHandlerBuilder, JsfPropBuilderString, JsfRegister
 import { CodeEditorMessages }                                                                              from './messages';
 import { jsfHandlerCommonCodeEditorCompatibility } from './code-editor.jsf';
 
-export const codeEditorMode = {
-  'javascript': {
-    name: 'javascript'
-  },
-  'typescript': {
-    name: 'javascript',
-    typescript: true
-  },
-  'json': {
-    name: 'javascript',
-    json: true
-  },
-};
 
 export class HandlerCodeEditorBuilder extends JsfBasicHandlerBuilder<JsfPropBuilderString> {
 
   type = 'common/code-editor';
 
 
-  get mode() {
-    const language = this.builder.prop.handler.options.language;
-    if (!language || !codeEditorMode[language]) {
-      throw new Error(`Unknown language "${ language }" (supported languages: ${ Object.keys(codeEditorMode).join(', ') })`);
-    }
-    return codeEditorMode[language];
+  get language() {
+    return this.builder.prop.handler.options.language;
   }
 
   /**

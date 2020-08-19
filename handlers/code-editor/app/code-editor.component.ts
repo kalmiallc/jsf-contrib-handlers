@@ -1,49 +1,20 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { JsfPropBuilderString, JsfPropLayoutBuilder }                           from '@kalmia/jsf-common-es2015';
-import { HandlerCodeEditorBuilder }                                             from '../common/code-editor.builder';
-import { AbstractPropHandlerComponent }                                         from '@kalmia/jsf-app';
-// Modes
-import 'codemirror/mode/javascript/javascript';
-// Addons
-import 'codemirror/addon/dialog/dialog';
-
-import 'codemirror/addon/search/searchcursor';
-import 'codemirror/addon/search/search';
-import 'codemirror/addon/search/jump-to-line';
-import 'codemirror/addon/search/matchesonscrollbar';
-import 'codemirror/addon/search/match-highlighter';
-
-import 'codemirror/addon/edit/matchbrackets';
-import 'codemirror/addon/edit/closebrackets';
-import 'codemirror/addon/edit/matchtags';
-import 'codemirror/addon/edit/closetag';
-
-import 'codemirror/addon/fold/foldcode';
-import 'codemirror/addon/fold/foldgutter';
-
-import 'codemirror/addon/fold/brace-fold';
-import 'codemirror/addon/fold/xml-fold';
-import 'codemirror/addon/fold/comment-fold';
-import 'codemirror/addon/fold/indent-fold';
-import 'codemirror/addon/fold/markdown-fold';
-
-import 'codemirror/addon/hint/show-hint';
-import 'codemirror/addon/hint/javascript-hint';
-import 'codemirror/addon/hint/xml-hint';
-import 'codemirror/addon/hint/html-hint';
-import 'codemirror/addon/hint/sql-hint';
-
-import 'codemirror/addon/lint/lint';
-import 'codemirror/addon/lint/json-lint';
-import 'codemirror/addon/lint/javascript-lint';
-import 'codemirror/addon/lint/css-lint';
-
-import 'codemirror/addon/selection/mark-selection';
-
-import 'codemirror/addon/comment/continuecomment';
-
-import 'codemirror/addon/scroll/annotatescrollbar';
-import 'codemirror/addon/scroll/simplescrollbars';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  Optional, TemplateRef,
+  ViewChild, ViewContainerRef,
+  ViewEncapsulation
+} from '@angular/core';
+import { JsfPropBuilderString, JsfPropLayoutBuilder }                    from '@kalmia/jsf-common-es2015';
+import { HandlerCodeEditorBuilder }                                      from '../common/code-editor.builder';
+import { AbstractPropHandlerComponent, ShowValidationMessagesDirective } from '@kalmia/jsf-app';
+import { Overlay, OverlayRef }                                           from '@angular/cdk/overlay';
+import { TemplatePortal }                                                from '@angular/cdk/portal';
+import { merge }                                                         from 'rxjs';
+import { takeUntil }                                                     from 'rxjs/operators';
 
 
 interface CodeEditorPreferences {
@@ -52,16 +23,25 @@ interface CodeEditorPreferences {
 @Component({
   selector       : 'app-code-editor',
   template       : `
-      <div class="handler-common-code-editor jsf-animatable"
+      <div class="handler-common-code-editor jsf-animatable rounded-sm"
            [ngClass]="layoutSchema?.htmlClass || ''">
 
-          <ngx-codemirror [(ngModel)]="value"
-                          [options]="editorOptions">
-          </ngx-codemirror>
-
+          <div class="handler-common-code-editor-preview-area cursor-pointer" (click)="openCodeEditor()">
+              <jsf-icon icon="fullscreen"></jsf-icon>
+              <div class="text-monospace text-pre no-text-selection">{{ value }}</div>
+              <div class="handler-common-code-editor-overlay"></div>
+          </div>
+          
           <!-- Validation errors -->
           <jsf-error-messages *ngIf="hasErrors" [messages]="interpolatedErrors"></jsf-error-messages>
       </div>
+    
+    <ng-template #codeEditorTemplate>
+        <div class="handler-common-code-editor-overlay-content" style="position: relative; width: 100%; height: 100%;">
+            <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="value" style="width: 100%; height: 100%;"></ngx-monaco-editor>
+            <jsf-icon icon="close" class="cursor-pointer" (click)="closeCodeEditor()" style="position: absolute; top: 0; right: -30px;"></jsf-icon>
+        </div>
+    </ng-template>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls      : ['code-editor.component.scss'],
@@ -72,28 +52,66 @@ export class CodeEditorComponent extends AbstractPropHandlerComponent<JsfPropBui
   @Input()
   layoutBuilder: JsfPropLayoutBuilder<JsfPropBuilderString>;
 
+  @ViewChild('codeEditorTemplate', { read: TemplateRef, static: false })
+  codeEditorTemplate: TemplateRef<any>;
+
   public editorOptions;
+
+  private overlayRef: OverlayRef;
+
+  constructor(protected cdRef: ChangeDetectorRef,
+              @Optional() protected showValidation: ShowValidationMessagesDirective,
+              protected vcRef: ViewContainerRef,
+              protected overlay: Overlay) {
+    super(cdRef, showValidation);
+  }
 
   public ngOnInit(): void {
     super.ngOnInit();
 
     this.editorOptions = {
-      theme: 'material',
-      mode : this.handlerBuilder.mode,
-
-      lineNumbers: true,
-
-      // Addons
-      matchBrackets            : true,
-      autoCloseBrackets        : true,
-      matchTags                : true,
-      autoCloseTags            : true,
-      foldGutter               : true,
-      highlightSelectionMatches: true,
-      styleActiveLine          : true,
-      continueComments         : true,
-      scrollbarStyle           : 'overlay'
+      theme: 'vs-dark',
+      language: this.handlerBuilder.language,
+      automaticLayout: true
     };
+    this.cdRef.markForCheck();
+    this.cdRef.detectChanges();
+  }
+
+  public openCodeEditor() {
+    this.overlayRef = this.overlay.create({
+      // Position strategy defines where popup will be displayed
+      positionStrategy: this.overlay.position()
+        .global()
+        .centerHorizontally()
+        .centerVertically(),
+      // Popup reposition on scroll
+      scrollStrategy  : this.overlay.scrollStrategies.reposition(),
+
+      hasBackdrop     : true,
+      width: '80vw',
+      height: '90vh'
+    });
+
+    // Put template to a portal
+    const templatePortal = new TemplatePortal(this.codeEditorTemplate, this.vcRef);
+
+    // Attach the portal to the overlay
+    this.overlayRef.attach(templatePortal);
+
+    // Handle closing
+    merge(
+      this.overlayRef.backdropClick(),
+      this.overlayRef.detachments()
+    )
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(() => {
+        this.overlayRef.dispose();
+      });
+  }
+
+  public closeCodeEditor() {
+    this.overlayRef.dispose();
   }
 
 
