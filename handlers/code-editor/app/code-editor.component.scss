@@ -15,6 +15,10 @@ $swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
   background-color: #222222;
   color: white;
 
+  .handler-common-code-editor-content {
+    min-height: 3em;
+  }
+
   jsf-icon {
     position: absolute;
     right: 5px;

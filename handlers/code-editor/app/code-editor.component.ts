@@ -28,7 +28,7 @@ interface CodeEditorPreferences {
 
           <div class="handler-common-code-editor-preview-area cursor-pointer" (click)="openCodeEditor()">
               <jsf-icon icon="fullscreen"></jsf-icon>
-              <div class="text-monospace text-pre no-text-selection">{{ value }}</div>
+              <div class="handler-common-code-editor-content text-monospace text-pre no-text-selection">{{ value }}</div>
               <div class="handler-common-code-editor-overlay"></div>
           </div>
           
