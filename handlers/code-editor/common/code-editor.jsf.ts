@@ -14,6 +14,8 @@ const jsfHandlerCommonCodeEditorJsfDefinition: JsfDefinition = {
             { label: 'javascript', value: 'javascript'},
             { label: 'typescript', value: 'typescript'},
             { label: 'json', value: 'json'},
+            { label: 'css', value: 'css'},
+            { label: 'scss', value: 'scss'},
           ]
         }
       },
