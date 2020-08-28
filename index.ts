@@ -7,5 +7,6 @@ export const handlers = [
   'common/button-toggle-all-none-custom',
   'common/button-toggle-unknown-custom',
   'common/file-upload-token',
-  'common/slider'
+  'common/slider',
+  'common/chip-list',
 ];

@@ -1,0 +1,6 @@
+:host ::ng-deep {
+  .mat-form-field-infix {
+    height: auto !important;
+    min-height: 38px;
+  }
+}
