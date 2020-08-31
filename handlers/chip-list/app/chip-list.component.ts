@@ -12,7 +12,8 @@ import { ChipListMessages }                                             from '..
 import { MatChipInputEvent }                                            from '@angular/material/chips';
 import {
   COMMA,
-  ENTER
+  ENTER,
+  SPACE
 }                                                                       from '@angular/cdk/keycodes';
 
 export interface ChipValue {
@@ -80,7 +81,7 @@ export class ChipListComponent extends AbstractPropHandlerComponent<JsfPropBuild
     // tslint:disable-next-line:max-line-length
     layoutBuilder: JsfPropLayoutBuilder<JsfPropBuilderArray>;
 
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
 
   public messages = ChipListMessages;
 
