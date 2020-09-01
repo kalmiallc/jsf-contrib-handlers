@@ -1,6 +1,5 @@
 import { JsfDefinition, HandlerCompatibilityInterface } from '@kalmia/jsf-common-es2015';
 import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
-import { ONCLICK_JSF_SCHEMA, createOnClickJsfLayout } from '@kalmia/jsf-common-es2015/lib/jsf-for-jsf/util/on-click-interface-jsf-schema';
 
 const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
   schema: {
@@ -46,7 +45,10 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                   type: 'string',
                   title: 'Tooltip'
                 },
-                onClick: ONCLICK_JSF_SCHEMA
+                // TODO
+                onClick: {
+                  type: 'string'
+                }
               }
             },
             lightness: {
@@ -342,7 +344,8 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                             htmlClass: 'ml-3',
                             xs: 12,
                             items: [
-                              createOnClickJsfLayout('colorPickerItems[].zoomIcon.onClick')
+                              // TODO
+                              // createOnClickJsfLayout('colorPickerItems[].zoomIcon.onClick')
                             ]
                           }
 
