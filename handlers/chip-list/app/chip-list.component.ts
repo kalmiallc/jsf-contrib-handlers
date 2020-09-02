@@ -118,7 +118,7 @@ export class ChipListComponent extends AbstractPropHandlerComponent<JsfPropBuild
   }
 
   remove(chip: ChipValue): void {
-    this.propBuilder.removeById(chip.propBuilder.id);
+    this.propBuilder.removeById(chip.propBuilder.id).catch(console.error);
     this.cdRef.detectChanges();
   }
 
