@@ -94,7 +94,7 @@ export class ChipListComponent extends AbstractPropHandlerComponent<JsfPropBuild
   }
 
   get chips() {
-    return this.propBuilder.items.map(x => ({
+    return (this.propBuilder.items || []).map(x => ({
       propBuilder: x as any,
       value      : x.getJsonValue()
     } as ChipValue));
