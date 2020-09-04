@@ -808,14 +808,14 @@ export class ColorPickerComponent extends AbstractPropHandlerComponent<JsfPropBu
         }
         ])
         .withTransformOriginOn('.color-picker-popover')
-        .withViewportMargin(5)
-        .withPush(false)
+        .withViewportMargin(10)
+        .withPush(true)
         .withGrowAfterOpen(true),
       // Popup reposition on scroll
       scrollStrategy  : this.overlay.scrollStrategies.reposition(),
       // Use transparent backdrop
       hasBackdrop     : true,
-      backdropClass   : 'cdk-overlay-transparent-backdrop'
+      backdropClass   : 'cdk-overlay-transparent-backdrop',
     });
 
     // Put template to a portal
