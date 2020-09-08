@@ -4,16 +4,12 @@ import { CodeEditorComponent }      from './code-editor.component';
 import { HandlerCodeEditorBuilder } from '../common/code-editor.builder';
 import { FormsModule }              from '@angular/forms';
 import { JsfComponentsModule }      from '@kalmia/jsf-app';
-import { MonacoEditorModule }       from 'ngx-monaco-editor';
-import { PortalModule }             from '@angular/cdk/portal';
 
 @NgModule({
   imports     : [
     CommonModule,
     FormsModule,
-    JsfComponentsModule,
-    PortalModule,
-    MonacoEditorModule.forRoot()
+    JsfComponentsModule
   ],
   declarations: [CodeEditorComponent],
   exports     : [CodeEditorComponent]
