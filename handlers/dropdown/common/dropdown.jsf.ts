@@ -1,7 +1,8 @@
 import { JsfDefinition, HandlerCompatibilityInterface } from '@kalmia/jsf-common-es2015';
 import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
+import { EditorInterfaceLayoutFactory }                 from '../../../../../../../common/src/editor/helpers/editor-factory';
 
-const jsfHandlerCommonDropdownJsfDefinition: JsfDefinition = {
+const jsfHandlerCommonDropdownFormJsfDefinition: JsfDefinition = {
   schema: {
     type: 'object',
     properties: {
@@ -134,6 +135,39 @@ const jsfHandlerCommonDropdownJsfDefinition: JsfDefinition = {
   }
 } as any;
 
+export const jsfHandlerCommonDropdownLayoutJsfDefinition: any = {
+  schema: {
+    type      : 'object',
+    properties: {
+      handlerPreferences: {
+        type      : 'object',
+        properties: {
+          stepperButtons: {
+            type : 'boolean',
+            title: 'Stepper buttons'
+          },
+          searchable    : {
+            type : 'boolean',
+            title: 'Searchable'
+          }
+        }
+      }
+    }
+  },
+  layout: {
+    type : 'div',
+    items: [
+      ...EditorInterfaceLayoutFactory.createPanelGroup([
+        ...EditorInterfaceLayoutFactory.createPanel('Dropdown', [
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.searchable'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.stepperButtons'),
+        ])
+      ])
+    ]
+  }
+};
+
+
 const formDefinitionTransform = (x: any, prop: JsfProp) => {
   x.schema.properties.values.items.properties.value.type = prop.type;
   return x;
@@ -141,7 +175,8 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 
 export const jsfHandlerCommonDropdownCompatibility: HandlerCompatibilityInterface = {
 
-  formDefinition: jsfHandlerCommonDropdownJsfDefinition,
+  formDefinition: jsfHandlerCommonDropdownFormJsfDefinition,
+  layoutDefinition: jsfHandlerCommonDropdownLayoutJsfDefinition,
   title: 'Dropdown',
   icon: 'handler-icons/dropdown.svg',
   category: 'Common',
