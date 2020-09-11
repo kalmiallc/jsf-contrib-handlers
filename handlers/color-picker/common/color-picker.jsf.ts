@@ -1,48 +1,49 @@
-import { JsfDefinition, HandlerCompatibilityInterface } from '@kalmia/jsf-common-es2015';
-import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
+import { HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
+import { JsfProp }                                      from '@kalmia/jsf-common-es2015/lib/schema';
+import { EditorInterfaceLayoutFactory }                 from '../../../../../../../common/src/editor/helpers/editor-factory';
 
-const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
+const jsfHandlerCommonColorPickerFormJsfDefinition: JsfDefinition = {
   schema: {
-    type: 'object',
+    type      : 'object',
     properties: {
-      colorPickerItems: {
-        type: 'array',
+      colorPickerItems      : {
+        type : 'array',
         items: {
-          type: 'object',
+          type      : 'object',
           properties: {
-            value: {
-              type: 'string',
+            value           : {
+              type : 'string',
               title: 'Value'
             },
-            label: {
-              type: 'string',
+            label           : {
+              type : 'string',
               title: 'Label'
             },
-            color: {
-              type: 'string',
+            color           : {
+              type : 'string',
               title: 'Color'
             },
-            icon: {
-              type: 'string',
+            icon            : {
+              type : 'string',
               title: 'Icon'
             },
-            smallIcon: {
-              type: 'string',
+            smallIcon       : {
+              type : 'string',
               title: 'Small icon'
             },
-            smallIcon2: {
-              type: 'string',
+            smallIcon2      : {
+              type : 'string',
               title: 'Small Icon 2'
             },
-            zoomIcon: {
-              type: 'object',
+            zoomIcon        : {
+              type      : 'object',
               properties: {
-                icon: {
-                  type: 'string',
+                icon   : {
+                  type : 'string',
                   title: 'Icon'
                 },
                 tooltip: {
-                  type: 'string',
+                  type : 'string',
                   title: 'Tooltip'
                 },
                 // TODO
@@ -51,140 +52,140 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                 }
               }
             },
-            lightness: {
-              type: 'string',
-              title: 'Lightness',
+            lightness       : {
+              type   : 'string',
+              title  : 'Lightness',
               handler: {
-                type: 'common/dropdown',
+                type  : 'common/dropdown',
                 values: [
-                  { label: 'light', value: 'light'},
-                  { label: 'superlight', value: 'superlight'},
-                  { label: 'dark', value: 'dark'},
+                  { label: 'light', value: 'light' },
+                  { label: 'superlight', value: 'superlight' },
+                  { label: 'dark', value: 'dark' }
                 ]
               }
             },
             advancedSettings: {
-              type: 'boolean',
-              title: 'Advanced settings',
+              type   : 'boolean',
+              title  : 'Advanced settings',
               default: false
             }
           }
         }
       },
-      colorPickerOptions: {
-        type: 'object',
+      colorPickerOptions    : {
+        type      : 'object',
         properties: {
           mode: {
-            type: 'string',
-            title: 'Mode',
+            type   : 'string',
+            title  : 'Mode',
             handler: {
-              type: 'common/button-toggle',
+              type  : 'common/button-toggle',
               values: [
-                { label: 'Ral', value: 'ral'},
-                { label: 'Custom', value: 'custom'},
+                { label: 'Ral', value: 'ral' },
+                { label: 'Custom', value: 'custom' }
               ]
             }
           }
         }
       },
       colorPickerPreferences: {
-        type: 'object',
+        type      : 'object',
         properties: {
-          variant: {
-            type: 'string',
-            title: 'Variant',
+          variant        : {
+            type   : 'string',
+            title  : 'Variant',
             handler: {
-              type: 'common/dropdown',
+              type  : 'common/dropdown',
               values: [
-                { label: 'tile', value: 'tile'},
-                { label: 'popover-menu', value: 'popover-menu'},
+                { label: 'tile', value: 'tile' },
+                { label: 'popover-menu', value: 'popover-menu' }
               ]
             }
           },
-          height: {
-            type: 'string',
-            title: 'Maximum height',
+          height         : {
+            type       : 'string',
+            title      : 'Maximum height',
             description: 'Should the tiles exceed this value the container will become scrollable.'
           },
-          tileSize: {
-            type: 'number',
-            title: 'Tile size',
+          tileSize       : {
+            type       : 'number',
+            title      : 'Tile size',
             description: 'Minimum allowed tile size.'
           },
           tileHeightRatio: {
-            type: 'number',
-            title: 'Tile height ratio',
+            type       : 'number',
+            title      : 'Tile height ratio',
             description: 'Percentage value of width the tiles height should occupy.'
           },
-          tilePadding: {
-            type: 'string',
-            title: 'Tile padding',
+          tilePadding    : {
+            type       : 'string',
+            title      : 'Tile padding',
             description: 'Padding between tiles.',
             placeholder: '2px'
           },
-          tilesPerRow: {
-            type: 'number',
-            title: 'Tiles per row',
+          tilesPerRow    : {
+            type       : 'number',
+            title      : 'Tiles per row',
             description: 'Desired amount of tiles per row.'
           },
-          searchable: {
-            type: 'boolean',
-            title: 'Searchable',
+          searchable     : {
+            type : 'boolean',
+            title: 'Searchable'
           }
         }
       }
     }
   },
   layout: {
-    type: 'div',
+    type : 'div',
     items: [
       {
-        type: 'heading',
+        type : 'heading',
         level: 5,
         title: 'Items'
       },
       {
-        type: 'div',
+        type     : 'div',
         htmlClass: 'ml-3',
-        items: [
+        items    : [
           {
-            type: 'expansion-panel',
-            key: 'colorPickerItems',
+            type : 'expansion-panel',
+            key  : 'colorPickerItems',
             items: [
               {
-                type: 'expansion-panel-header',
+                type : 'expansion-panel-header',
                 items: [
                   {
-                    type: 'row',
+                    type           : 'row',
                     horizontalAlign: 'between',
-                    verticalAlign: 'center',
-                    htmlClass: '',
-                    items: [
+                    verticalAlign  : 'center',
+                    htmlClass      : '',
+                    items          : [
                       {
-                        type: 'col',
-                        xs: 'auto',
+                        type : 'col',
+                        xs   : 'auto',
                         items: [
                           {
-                            type: 'span',
-                            title: '{{value}}',
+                            type        : 'span',
+                            title       : '{{value}}',
                             templateData: {
-                              $eval: ` return {value: $getItemValue('colorPickerItems[]').label };`,
+                              $eval       : ` return {value: $getItemValue('colorPickerItems[]').label };`,
                               dependencies: ['colorPickerItems[].label']
                             }
                           }
                         ]
                       },
                       {
-                        type: 'col',
-                        xs: 'content',
+                        type : 'col',
+                        xs   : 'content',
                         items: [
                           {
-                            type: 'array-item-remove',
-                            icon: 'delete',
+                            type       : 'array-item-remove',
+                            icon       : 'delete',
                             preferences: {
                               variant: 'icon'
                             },
-                            tooltip: 'Remove item'
+                            tooltip    : 'Remove item'
                           }
                         ]
                       }
@@ -193,14 +194,14 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                 ]
               },
               {
-                type: 'expansion-panel-content',
+                type : 'expansion-panel-content',
                 items: [
                   {
-                    type: 'row',
+                    type : 'row',
                     items: [
                       {
-                        type: 'col',
-                        xs: 6,
+                        type : 'col',
+                        xs   : 6,
                         items: [
                           {
                             key: 'colorPickerItems[].label'
@@ -208,8 +209,8 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                         ]
                       },
                       {
-                        type: 'col',
-                        xs: 6,
+                        type : 'col',
+                        xs   : 6,
                         items: [
                           {
                             key: 'colorPickerItems[].value'
@@ -219,11 +220,11 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                     ]
                   },
                   {
-                    type: 'row',
+                    type : 'row',
                     items: [
                       {
-                        type: 'col',
-                        xs: 12,
+                        type : 'col',
+                        xs   : 12,
                         items: [
                           {
                             key: 'colorPickerItems[].color'
@@ -233,11 +234,11 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                     ]
                   },
                   {
-                    type: 'row',
+                    type : 'row',
                     items: [
                       {
-                        type: 'col',
-                        xs: 12,
+                        type : 'col',
+                        xs   : 12,
                         items: [
                           {
                             key: 'colorPickerItems[].icon'
@@ -247,11 +248,11 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                     ]
                   },
                   {
-                    type: 'row',
+                    type : 'row',
                     items: [
                       {
-                        type: 'col',
-                        xs: 12,
+                        type : 'col',
+                        xs   : 12,
                         items: [
                           {
                             key: 'colorPickerItems[].advancedSettings'
@@ -261,18 +262,18 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                     ]
                   },
                   {
-                    type: 'div',
+                    type     : 'div',
                     visibleIf: {
-                      $eval: `return $getItemValue('colorPickerItems[].advancedSettings')`,
+                      $eval       : `return $getItemValue('colorPickerItems[].advancedSettings')`,
                       dependencies: ['colorPickerItems[].advancedSettings']
                     },
-                    items: [
+                    items    : [
                       {
-                        type: 'row',
+                        type : 'row',
                         items: [
                           {
-                            type: 'col',
-                            xs: 12,
+                            type : 'col',
+                            xs   : 12,
                             items: [
                               {
                                 key: 'colorPickerItems[].lightness'
@@ -282,11 +283,11 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                         ]
                       },
                       {
-                        type: 'row',
+                        type : 'row',
                         items: [
                           {
-                            type: 'col',
-                            xs: 6,
+                            type : 'col',
+                            xs   : 6,
                             items: [
                               {
                                 key: 'colorPickerItems[].smallIcon'
@@ -294,8 +295,8 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                             ]
                           },
                           {
-                            type: 'col',
-                            xs: 6,
+                            type : 'col',
+                            xs   : 6,
                             items: [
                               {
                                 key: 'colorPickerItems[].smallIcon2'
@@ -305,45 +306,45 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
                         ]
                       },
                       {
-                        type: 'row',
+                        type     : 'row',
                         htmlClass: '',
-                        items: [
+                        items    : [
                           {
-                            type: 'col',
-                            xs: 12,
+                            type : 'col',
+                            xs   : 12,
                             items: [
                               {
-                                type: 'heading',
+                                type : 'heading',
                                 title: 'Zoom icon',
                                 level: 6
                               }
                             ]
                           },
                           {
-                            type: 'col',
+                            type     : 'col',
                             htmlClass: 'ml-3',
-                            xs: 6,
-                            items: [
+                            xs       : 6,
+                            items    : [
                               {
                                 key: 'colorPickerItems[].zoomIcon.icon'
                               }
                             ]
                           },
                           {
-                            type: 'col',
+                            type     : 'col',
                             htmlClass: 'ml-3',
-                            xs: 6,
-                            items: [
+                            xs       : 6,
+                            items    : [
                               {
                                 key: 'colorPickerItems[].zoomIcon.tooltip'
                               }
                             ]
                           },
                           {
-                            type: 'col',
+                            type     : 'col',
                             htmlClass: 'ml-3',
-                            xs: 12,
-                            items: [
+                            xs       : 12,
+                            items    : [
                               // TODO
                               // createOnClickJsfLayout('colorPickerItems[].zoomIcon.onClick')
                             ]
@@ -358,42 +359,42 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
             ]
           },
           {
-            type: 'array-item-add',
-            path: 'colorPickerItems',
-            icon: 'add',
-            title: 'Add item',
+            type       : 'array-item-add',
+            path       : 'colorPickerItems',
+            icon       : 'add',
+            title      : 'Add item',
             preferences: {
               variant: 'flat',
-              size: 'small'
+              size   : 'small'
             }
           }
         ]
       },
       {
-        type: 'heading',
-        level: 5,
-        title: 'Options',
+        type     : 'heading',
+        level    : 5,
+        title    : 'Options',
         htmlClass: 'mt-3'
       },
       {
-        type: 'div',
+        type     : 'div',
         htmlClass: 'ml-3',
-        items: [
+        items    : [
           {
             key: 'colorPickerOptions.mode'
           }
         ]
       },
       {
-        type: 'heading',
-        level: 5,
-        title: 'Preferences',
+        type     : 'heading',
+        level    : 5,
+        title    : 'Preferences',
         htmlClass: 'mt-3'
       },
       {
-        type: 'div',
+        type     : 'div',
         htmlClass: 'ml-3',
-        items: [
+        items    : [
           {
             key: 'colorPickerPreferences.variant'
           },
@@ -407,14 +408,14 @@ const jsfHandlerCommonColorPickerJsfDefinition: JsfDefinition = {
             key: 'colorPickerPreferences.tileHeightRatio'
           },
           {
-            key: 'colorPickerPreferences.tilePadding',
+            key        : 'colorPickerPreferences.tilePadding',
             placeholder: '2px'
           },
           {
             key: 'colorPickerPreferences.height'
           },
           {
-            key: 'colorPickerPreferences.searchable',
+            key      : 'colorPickerPreferences.searchable',
             htmlClass: 'mt-1 font-weight-normal'
           }
         ]
@@ -428,12 +429,78 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
   return x;
 };
 
+export const jsfHandlerCommonColorPickerLayoutJsfDefinition: any = {
+  schema: {
+    type      : 'object',
+    properties: {
+      handlerPreferences: {
+        type: 'object',
+        properties: {
+          variant: {
+            type   : 'string',
+            handler: {
+              type  : 'common/dropdown',
+              values: [
+                { label: 'Tile', value: 'tile' },
+                { label: 'Popover menu', value: 'popover-menu' }
+              ]
+            }
+          },
+
+          height: {
+            type: 'string'
+          },
+
+          tileSize: {
+            type: 'number'
+          },
+
+          tileHeightRatio: {
+            type: 'number'
+          },
+
+          tilePadding: {
+            type: 'string'
+          },
+
+          tilesPerRow: {
+            type   : 'integer',
+            minimum: 1
+          },
+
+          searchable: {
+            type : 'boolean',
+            title: 'Searchable'
+          }
+        }
+      }
+    }
+  },
+  layout: {
+    type : 'div',
+    items: [
+      ...EditorInterfaceLayoutFactory.createPanelGroup([
+        ...EditorInterfaceLayoutFactory.createPanel('Color picker', [
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.variant', 'Variant'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.height', 'Height'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.tileSize', 'Tile size'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.tileHeightRatio', 'Tile height ratio'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.tilePadding', 'Tile padding'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.tilesPerRow', 'Tiles per row'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.searchable')
+        ])
+      ])
+    ]
+  }
+};
+
 export const jsfHandlerCommonColorPickerCompatibility: HandlerCompatibilityInterface = {
 
-  formDefinition: jsfHandlerCommonColorPickerJsfDefinition,
-  title: 'Color picker',
-  icon: 'handler-icons/color-picker.svg',
-  category: 'Common',
+  formDefinition  : jsfHandlerCommonColorPickerFormJsfDefinition,
+  layoutDefinition: jsfHandlerCommonColorPickerLayoutJsfDefinition,
+  title           : 'Color picker',
+  icon            : 'handler-icons/color-picker.svg',
+  category        : 'Common',
 
   compatibleWith: [
     {

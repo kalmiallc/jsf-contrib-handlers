@@ -1,7 +1,9 @@
 import { JsfDefinition, HandlerCompatibilityInterface } from '@kalmia/jsf-common-es2015';
 import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
+import { EditorInterfaceLayoutFactory }                 from '../../../../../../../common/src/editor/helpers/editor-factory';
+import { BreakpointOrCustomSize }                       from '@kalmia/jsf-app/lib/kal-jsf-doc/services/responsive.service';
 
-const jsfHandlerCommonButtonToggleJsfDefinition: JsfDefinition = {
+const jsfHandlerCommonButtonToggleFormJsfDefinition: JsfDefinition = {
   schema: {
     type: 'object',
     properties: {
@@ -125,6 +127,68 @@ const jsfHandlerCommonButtonToggleJsfDefinition: JsfDefinition = {
   }
 } as any;
 
+export const jsfHandlerCommonButtonToggleLayoutJsfDefinition: any = {
+  schema: {
+    type      : 'object',
+    properties: {
+      handlerPreferences: {
+        type      : 'object',
+        properties: {
+          variant: {
+            type : 'string',
+            handler: {
+              type: 'common/dropdown',
+              values: [
+                { label: 'Basic', value: 'basic' },
+                { label: 'Tiles', value: 'tile' },
+                { label: 'Large tiles', value: 'tile-large' },
+              ]
+            },
+            default: 'basic',
+          },
+
+          displayModeBreakpoint    : {
+            type : 'string',
+              handler: {
+              type: 'common/dropdown',
+                values: [
+                { label: 'XS', value: 'xs' },
+                { label: 'SM', value: 'sm' },
+                { label: 'MD', value: 'md' },
+                { label: 'LG', value: 'lg' },
+                { label: 'XL', value: 'xl' },
+              ]
+            }
+          },
+
+          showSelectedCheckMark: {
+            type: 'boolean',
+            title: 'Show selected check mark'
+          },
+
+          scaleModeTilesPerRow: {
+            type: 'integer',
+            minimum: 1,
+          }
+        }
+      }
+    }
+  },
+  layout: {
+    type : 'div',
+    items: [
+      ...EditorInterfaceLayoutFactory.createPanelGroup([
+        ...EditorInterfaceLayoutFactory.createPanel('Button toggle', [
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.variant', 'Variant'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.displayModeBreakpoint', 'Display mode breakpoint'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.showSelectedCheckMark'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.scaleModeTilesPerRow', 'Tiles per row in scale mode'),
+        ])
+      ])
+    ]
+  }
+};
+
 const formDefinitionTransform = (x: any, prop: JsfProp) => {
   x.schema.properties.values.items.properties.value.type = prop.type;
   return x;
@@ -132,7 +196,8 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 
 export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInterface = {
 
-  formDefinition: jsfHandlerCommonButtonToggleJsfDefinition,
+  formDefinition: jsfHandlerCommonButtonToggleFormJsfDefinition,
+  layoutDefinition: jsfHandlerCommonButtonToggleLayoutJsfDefinition,
   title: 'Button Toggle',
   icon: 'handler-icons/button-toggle.svg',
   category: 'Common',
