@@ -1,6 +1,5 @@
-import { HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
+import { HandlerCompatibilityInterface, JsfDefinition, EditorInterfaceLayoutFactory } from '@kalmia/jsf-common-es2015';
 import { JsfProp }                                      from '@kalmia/jsf-common-es2015/lib/schema';
-import { EditorInterfaceLayoutFactory }                 from '../../../../../../../common/src/editor/helpers/editor-factory';
 
 const jsfHandlerCommonCodeEditorFormJsfDefinition: JsfDefinition = {
   schema: {

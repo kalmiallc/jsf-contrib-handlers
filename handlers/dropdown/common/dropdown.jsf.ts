@@ -1,6 +1,5 @@
-import { JsfDefinition, HandlerCompatibilityInterface } from '@kalmia/jsf-common-es2015';
+import { JsfDefinition, HandlerCompatibilityInterface, EditorInterfaceLayoutFactory } from '@kalmia/jsf-common-es2015';
 import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
-import { EditorInterfaceLayoutFactory }                 from '../../../../../../../common/src/editor/helpers/editor-factory';
 
 const jsfHandlerCommonDropdownFormJsfDefinition: JsfDefinition = {
   schema: {
