@@ -1,5 +1,6 @@
-import { HandlerCompatibilityInterface, JsfDefinition, EditorInterfaceLayoutFactory } from '@kalmia/jsf-common-es2015';
-import { JsfProp }                                      from '@kalmia/jsf-common-es2015/lib/schema';
+import { EditorInterfaceLayoutFactory, HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
+import { JsfProp }                                                                    from '@kalmia/jsf-common-es2015/lib/schema';
+import { RadioMessages }                                                              from './messages';
 
 const jsfHandlerCommonRadioFormJsfDefinition: JsfDefinition = {
   schema: {
@@ -200,5 +201,9 @@ export const jsfHandlerCommonRadioCompatibility: HandlerCompatibilityInterface =
       type: 'integer',
       formDefinitionTransform // <- optional can also be direct: (x, p) => { return x }
     }
-  ]
+  ],
+
+  localization: {
+    translatableProperties: [() => Object.values(RadioMessages)]
+  }
 };

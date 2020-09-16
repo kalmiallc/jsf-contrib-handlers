@@ -1,72 +1,73 @@
-import { JsfDefinition, HandlerCompatibilityInterface } from '@kalmia/jsf-common-es2015';
-import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
+import { HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
+import { JsfProp }                                      from '@kalmia/jsf-common-es2015/lib/schema';
+import { ButtonToggleUnknownCustomMessages }            from './messages';
 
 const jsfHandlerCommonButtonToggleUnknownCustomJsfDefinition: JsfDefinition = {
   schema: {
-    type: 'object',
+    type      : 'object',
     properties: {
-      options: {
-        type: 'object',
+      options    : {
+        type      : 'object',
         properties: {
           dependsOn: {
-            type: 'string',
+            type : 'string',
             title: 'Depends on'
           }
         }
       },
       preferences: {
-        type: 'object',
+        type      : 'object',
         properties: {
-          variant: {
-            type: 'string',
+          variant              : {
+            type : 'string',
             title: 'Variant'
           },
           displayModeBreakpoint: {
-            type: 'object',
+            type      : 'object',
             properties: {
               breakpointOrCustom: {
-                type: 'string',
+                type   : 'string',
                 handler: {
-                  type: 'common/button-toggle',
+                  type  : 'common/button-toggle',
                   values: [
-                    { label: 'Breakpoints', value: 'breakpoint'},
-                    { label: 'Custom', value: 'custom'}
+                    { label: 'Breakpoints', value: 'breakpoint' },
+                    { label: 'Custom', value: 'custom' }
                   ]
                 }
               },
-              breakpoint: {
-                type: 'string',
-                handler: {
-                  type: 'common/dropdown',
+              breakpoint        : {
+                type     : 'string',
+                handler  : {
+                  type  : 'common/dropdown',
                   values: [
-                    { label: 'xs', value: 'xs'},
-                    { label: 'sm', value: 'sm'},
-                    { label: 'md', value: 'md'},
-                    { label: 'lg', value: 'lg'},
-                    { label: 'xl', value: 'xl'}
+                    { label: 'xs', value: 'xs' },
+                    { label: 'sm', value: 'sm' },
+                    { label: 'md', value: 'md' },
+                    { label: 'lg', value: 'lg' },
+                    { label: 'xl', value: 'xl' }
                   ]
                 },
                 enabledIf: {
-                  $eval: `return $val.preferences.displayModeBreakpoint.breakpointOrCustom === 'breakpoint';`,
+                  $eval       : `return $val.preferences.displayModeBreakpoint.breakpointOrCustom === 'breakpoint';`,
                   dependencies: ['preferences.displayModeBreakpoint.breakpointOrCustom']
                 }
               },
-              custom: {
-                type: 'integer',
-                minimum: 0,
+              custom            : {
+                type     : 'integer',
+                minimum  : 0,
                 enabledIf: {
-                  $eval: `return $val.preferences.displayModeBreakpoint.breakpointOrCustom === 'custom';`,
+                  $eval       : `return $val.preferences.displayModeBreakpoint.breakpointOrCustom === 'custom';`,
                   dependencies: ['preferences.displayModeBreakpoint.breakpointOrCustom']
                 }
               }
             }
           },
           showSelectedCheckMark: {
-            type: 'boolean',
+            type : 'boolean',
             title: 'Show selected check mark'
           },
-          stepSize: {
-            type: 'number',
+          stepSize             : {
+            type : 'number',
             title: 'Step size'
           }
         }
@@ -74,44 +75,44 @@ const jsfHandlerCommonButtonToggleUnknownCustomJsfDefinition: JsfDefinition = {
     }
   },
   layout: {
-    type: 'div',
+    type : 'div',
     items: [
       {
-        type: 'heading',
+        type : 'heading',
         level: 5,
         title: 'Preferences'
       },
       {
-        type: 'div',
+        type     : 'div',
         htmlClass: 'ml-3 mb-3',
-        items: [
+        items    : [
           {
             key: 'preferences.variant'
           },
           {
-            type: 'span',
+            type : 'span',
             title: 'Display mode breakpoint'
           },
           {
             key: 'preferences.displayModeBreakpoint.breakpointOrCustom'
           },
           {
-            key: 'preferences.displayModeBreakpoint.breakpoint',
+            key      : 'preferences.displayModeBreakpoint.breakpoint',
             visibleIf: {
-              $eval: `return $val.preferences.displayModeBreakpoint.breakpointOrCustom === 'breakpoint';`,
+              $eval       : `return $val.preferences.displayModeBreakpoint.breakpointOrCustom === 'breakpoint';`,
               dependencies: ['preferences.displayModeBreakpoint.breakpointOrCustom']
             }
           },
           {
-            key: 'preferences.displayModeBreakpoint.custom',
+            key        : 'preferences.displayModeBreakpoint.custom',
             placeholder: 'px',
-            visibleIf: {
-              $eval: `return $val.preferences.displayModeBreakpoint.breakpointOrCustom === 'custom';`,
+            visibleIf  : {
+              $eval       : `return $val.preferences.displayModeBreakpoint.breakpointOrCustom === 'custom';`,
               dependencies: ['preferences.displayModeBreakpoint.breakpointOrCustom']
             }
           },
           {
-            key: 'preferences.showSelectedCheckMark',
+            key      : 'preferences.showSelectedCheckMark',
             htmlClass: 'mb-3 mt-3'
           },
           {
@@ -120,14 +121,14 @@ const jsfHandlerCommonButtonToggleUnknownCustomJsfDefinition: JsfDefinition = {
         ]
       },
       {
-        type: 'heading',
+        type : 'heading',
         level: 5,
         title: 'Options'
       },
       {
-        type: 'div',
+        type     : 'div',
         htmlClass: 'ml-3 mb-3',
-        items: [
+        items    : [
           {
             key: 'options.dependsOn'
           }
@@ -145,14 +146,18 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 export const jsfHandlerCommonButtonToggleUnknownCustomCompatibility: HandlerCompatibilityInterface = {
 
   formDefinition: jsfHandlerCommonButtonToggleUnknownCustomJsfDefinition,
-  title: 'Button toggle unknown',
-  icon: 'handler-icons/button-toggle-unknown.svg',
-  category: 'Common',
+  title         : 'Button toggle unknown',
+  icon          : 'handler-icons/button-toggle-unknown.svg',
+  category      : 'Common',
 
   compatibleWith: [
     {
       type: 'string',
       formDefinitionTransform
     }
-  ]
+  ],
+
+  localization: {
+    translatableProperties: [() => Object.values(ButtonToggleUnknownCustomMessages)]
+  }
 };

@@ -4,8 +4,9 @@ import {
   HandlerCompatibilityInterface,
   JsfDefinition,
   wrapKeyDynamic
-}                  from '@kalmia/jsf-common-es2015';
-import { JsfProp } from '@kalmia/jsf-common-es2015/lib/schema';
+}                         from '@kalmia/jsf-common-es2015';
+import { JsfProp }        from '@kalmia/jsf-common-es2015/lib/schema';
+import { SliderMessages } from './messages';
 
 const jsfHandlerCommonSliderFormJsfDefinition: JsfDefinition = {
   schema: {
@@ -239,5 +240,9 @@ export const jsfHandlerCommonSliderCompatibility: HandlerCompatibilityInterface 
       type: 'integer',
       formDefinitionTransform
     }
-  ]
+  ],
+
+  localization: {
+    translatableProperties: [() => Object.values(SliderMessages)]
+  }
 };

@@ -1,5 +1,6 @@
-import { HandlerCompatibilityInterface, JsfDefinition, EditorInterfaceLayoutFactory } from '@kalmia/jsf-common-es2015';
-import { JsfProp }                                      from '@kalmia/jsf-common-es2015/lib/schema';
+import { EditorInterfaceLayoutFactory, HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
+import { JsfProp }                                                                    from '@kalmia/jsf-common-es2015/lib/schema';
+import { ChipListMessages }                                                           from './messages';
 
 const jsfHandlerCommonChipListFormJsfDefinition: JsfDefinition = {
   schema: {
@@ -20,22 +21,22 @@ export const jsfHandlerCommonChipListLayoutJsfDefinition: any = {
         type      : 'object',
         properties: {
           selectable: {
-            type: 'boolean',
-            title: 'Selectable',
+            type   : 'boolean',
+            title  : 'Selectable',
             default: true
           },
 
           removable: {
-            type: 'boolean',
-            title: 'Removable',
+            type   : 'boolean',
+            title  : 'Removable',
             default: true
           },
 
           addOnBlur: {
-            type: 'boolean',
-            title: 'Add on blur',
+            type   : 'boolean',
+            title  : 'Add on blur',
             default: true
-          },
+          }
         }
       }
     }
@@ -47,7 +48,7 @@ export const jsfHandlerCommonChipListLayoutJsfDefinition: any = {
         ...EditorInterfaceLayoutFactory.createPanel('Chip list', [
           ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.selectable'),
           ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.removable'),
-          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.addOnBlur'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.addOnBlur')
         ])
       ])
     ]
@@ -70,5 +71,9 @@ export const jsfHandlerChipListDropdownCompatibility: HandlerCompatibilityInterf
       type: 'array',
       formDefinitionTransform
     }
-  ]
+  ],
+
+  localization: {
+    translatableProperties: [() => Object.values(ChipListMessages)]
+  }
 };

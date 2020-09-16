@@ -1,5 +1,6 @@
-import { HandlerCompatibilityInterface, JsfDefinition, EditorInterfaceLayoutFactory } from '@kalmia/jsf-common-es2015';
-import { JsfProp }                                      from '@kalmia/jsf-common-es2015/lib/schema';
+import { EditorInterfaceLayoutFactory, HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
+import { JsfProp }                                                                    from '@kalmia/jsf-common-es2015/lib/schema';
+import { CodeEditorMessages }                                                         from './messages';
 
 const jsfHandlerCommonCodeEditorFormJsfDefinition: JsfDefinition = {
   schema: {
@@ -76,5 +77,9 @@ export const jsfHandlerCommonCodeEditorCompatibility: HandlerCompatibilityInterf
     {
       type: 'string'
     }
-  ]
+  ],
+
+  localization: {
+    translatableProperties: [() => Object.values(CodeEditorMessages)]
+  }
 };

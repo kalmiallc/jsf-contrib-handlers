@@ -1,5 +1,6 @@
 import { JsfDefinition, HandlerCompatibilityInterface } from '@kalmia/jsf-common-es2015';
 import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
+import { ButtonToggleAllNoneCustomMessages }            from './messages';
 
 const jsfHandlerCommonButtonToggleAllNoneCustomJsfDefinition: JsfDefinition = {
   schema: {
@@ -154,5 +155,9 @@ export const jsfHandlerCommonButtonToggleAllNoneCustomCompatibility: HandlerComp
       type: 'string',
       formDefinitionTransform
     }
-  ]
+  ],
+
+  localization: {
+    translatableProperties: [() => Object.values(ButtonToggleAllNoneCustomMessages)]
+  }
 };

@@ -1,29 +1,30 @@
-import { JsfDefinition, HandlerCompatibilityInterface, EditorInterfaceLayoutFactory } from '@kalmia/jsf-common-es2015';
-import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
+import { EditorInterfaceLayoutFactory, HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
+import { JsfProp }                                                                    from '@kalmia/jsf-common-es2015/lib/schema';
+import { DropdownMessages }                                                           from './messages';
 
 const jsfHandlerCommonDropdownFormJsfDefinition: JsfDefinition = {
   schema: {
-    type: 'object',
+    type      : 'object',
     properties: {
       stepperButtons: {
-        type: 'boolean',
+        type : 'boolean',
         title: 'Stepper buttons'
       },
-      searchable: {
-        type: 'boolean',
+      searchable    : {
+        type : 'boolean',
         title: 'Searchable'
       },
-      values: {
-        type: 'array',
+      values        : {
+        type : 'array',
         items: {
-          type: 'object',
+          type      : 'object',
           properties: {
             value: {
-              type: 'number',
+              type : 'number',
               title: 'Value'
             },
             label: {
-              type: 'string',
+              type : 'string',
               title: 'Label'
             }
           }
@@ -32,38 +33,38 @@ const jsfHandlerCommonDropdownFormJsfDefinition: JsfDefinition = {
     }
   },
   layout: {
-    type: 'div',
+    type : 'div',
     items: [
       {
-        type: 'heading',
+        type : 'heading',
         level: 5,
         title: 'Items'
       },
       {
-        type: 'div',
+        type     : 'div',
         htmlClass: 'ml-3',
-        items: [
+        items    : [
           {
-            type: 'div',
+            type     : 'div',
             htmlClass: 'mt-3',
-            items: [
+            items    : [
               {
-                type: 'array',
-                key: 'values',
+                type : 'array',
+                key  : 'values',
                 items: [
                   {
-                    type: 'row',
+                    type : 'row',
                     items: [
                       {
-                        type: 'col',
-                        xs: 'auto',
+                        type : 'col',
+                        xs   : 'auto',
                         items: [
                           {
-                            type: 'row',
+                            type : 'row',
                             items: [
                               {
-                                type: 'col',
-                                xs: 6,
+                                type : 'col',
+                                xs   : 6,
                                 items: [
                                   {
                                     key: 'values[].label'
@@ -71,8 +72,8 @@ const jsfHandlerCommonDropdownFormJsfDefinition: JsfDefinition = {
                                 ]
                               },
                               {
-                                type: 'col',
-                                xs: 6,
+                                type : 'col',
+                                xs   : 6,
                                 items: [
                                   {
                                     key: 'values[].value'
@@ -84,16 +85,16 @@ const jsfHandlerCommonDropdownFormJsfDefinition: JsfDefinition = {
                         ]
                       },
                       {
-                        type: 'col',
-                        xs: 'content',
+                        type : 'col',
+                        xs   : 'content',
                         items: [
                           {
-                            type: 'array-item-remove',
-                            icon: 'delete',
+                            type       : 'array-item-remove',
+                            icon       : 'delete',
                             preferences: {
                               variant: 'icon'
                             },
-                            tooltip: 'Remove dropdown item'
+                            tooltip    : 'Remove dropdown item'
                           }
                         ]
                       }
@@ -102,8 +103,8 @@ const jsfHandlerCommonDropdownFormJsfDefinition: JsfDefinition = {
                 ]
               },
               {
-                type: 'array-item-add',
-                path: 'values',
+                type : 'array-item-add',
+                path : 'values',
                 title: 'Add dropdown item'
               }
             ]
@@ -111,22 +112,22 @@ const jsfHandlerCommonDropdownFormJsfDefinition: JsfDefinition = {
         ]
       },
       {
-        type: 'heading',
-        level: 5,
-        title: 'Preferences',
+        type     : 'heading',
+        level    : 5,
+        title    : 'Preferences',
         htmlClass: 'mt-3'
       },
       {
-        type: 'div',
+        type     : 'div',
         htmlClass: 'ml-3',
-        items: [
+        items    : [
           {
-            key: 'stepperButtons',
-            htmlClass: 'mb-3',
+            key      : 'stepperButtons',
+            htmlClass: 'mb-3'
           },
           {
-            key: 'searchable',
-            htmlClass: 'mb-3',
+            key      : 'searchable',
+            htmlClass: 'mb-3'
           }
         ]
       }
@@ -159,7 +160,7 @@ export const jsfHandlerCommonDropdownLayoutJsfDefinition: any = {
       ...EditorInterfaceLayoutFactory.createPanelGroup([
         ...EditorInterfaceLayoutFactory.createPanel('Dropdown', [
           ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.searchable'),
-          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.stepperButtons'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.stepperButtons')
         ])
       ])
     ]
@@ -174,11 +175,11 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 
 export const jsfHandlerCommonDropdownCompatibility: HandlerCompatibilityInterface = {
 
-  formDefinition: jsfHandlerCommonDropdownFormJsfDefinition,
+  formDefinition  : jsfHandlerCommonDropdownFormJsfDefinition,
   layoutDefinition: jsfHandlerCommonDropdownLayoutJsfDefinition,
-  title: 'Dropdown',
-  icon: 'handler-icons/dropdown.svg',
-  category: 'Common',
+  title           : 'Dropdown',
+  icon            : 'handler-icons/dropdown.svg',
+  category        : 'Common',
 
   compatibleWith: [
     {
@@ -191,5 +192,9 @@ export const jsfHandlerCommonDropdownCompatibility: HandlerCompatibilityInterfac
       type: 'integer',
       formDefinitionTransform // <- optional can also be direct: (x, p) => { return x }
     }
-  ]
+  ],
+
+  localization: {
+    translatableProperties: [() => Object.values(DropdownMessages)]
+  }
 };

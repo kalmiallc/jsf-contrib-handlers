@@ -212,5 +212,9 @@ export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInte
       type: 'integer',
       formDefinitionTransform // <- optional can also be direct: (x, p) => { return x }
     }
-  ]
+  ],
+
+  localization: {
+    translatableProperties: []
+  }
 };

@@ -1,5 +1,6 @@
-import { HandlerCompatibilityInterface, JsfDefinition, EditorInterfaceLayoutFactory } from '@kalmia/jsf-common-es2015';
-import { JsfProp }                                      from '@kalmia/jsf-common-es2015/lib/schema';
+import { EditorInterfaceLayoutFactory, HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
+import { JsfProp }                                                                    from '@kalmia/jsf-common-es2015/lib/schema';
+import { ColorPickerMessages }                                                        from './messages';
 
 const jsfHandlerCommonColorPickerFormJsfDefinition: JsfDefinition = {
   schema: {
@@ -433,7 +434,7 @@ export const jsfHandlerCommonColorPickerLayoutJsfDefinition: any = {
     type      : 'object',
     properties: {
       handlerPreferences: {
-        type: 'object',
+        type      : 'object',
         properties: {
           variant: {
             type   : 'string',
@@ -506,5 +507,9 @@ export const jsfHandlerCommonColorPickerCompatibility: HandlerCompatibilityInter
       type: 'string',
       formDefinitionTransform
     }
-  ]
+  ],
+
+  localization: {
+    translatableProperties: [() => Object.values(ColorPickerMessages)]
+  }
 };
