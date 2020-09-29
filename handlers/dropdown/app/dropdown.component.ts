@@ -61,7 +61,7 @@ interface DropdownPreferences {
                       </mat-option>
                       
                       <overlay-scrollbars [options]="scrollOptions">
-                          <mat-option *ngIf="!required && !isArray">{{ i18n('--') }}</mat-option>
+                          <mat-option *ngIf="!required && !isArray" [value]="null">{{ i18n('--') }}</mat-option>
                           <mat-option *ngFor="let item of filteredItems; trackBy: trackByFn"
                                       [value]="item.value">
                               {{ i18n(item.label) }}
@@ -191,6 +191,9 @@ export class DropdownComponent extends AbstractPropHandlerComponent<JsfPropBuild
   set value(x: any) {
     if (!isEqual(x, this.propBuilder.getJsonValue())) {
       this.propBuilder.setJsonValue(x as never)
+        .then(() => {
+          this.propBuilder.onUserValueChange();
+        })
         .catch(e => {
           console.error(e);
           throw e;
