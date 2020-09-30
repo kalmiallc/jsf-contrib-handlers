@@ -221,7 +221,7 @@ export class ButtonToggleComponent extends AbstractPropHandlerComponent<JsfPropB
       case 'array':
         return (this.value || []).indexOf(item.value) > -1;
       default:
-        return this.value !== null && this.value === item.value;
+        return (this.value !== null && this.value === item.value) || (item.value === null && this.value === item.value);
     }
   }
 
