@@ -9,7 +9,13 @@ const jsfHandlerCommonChipListFormJsfDefinition: JsfDefinition = {
   },
   layout: {
     type : 'div',
-    items: []
+    items: [
+      ...EditorInterfaceLayoutFactory.createPanelGroup([
+        ...EditorInterfaceLayoutFactory.createPanel('Chip list', [
+          ...EditorInterfaceLayoutFactory.createLabel('No configuration available.')
+        ])
+      ])
+    ]
   }
 } as any;
 
@@ -62,9 +68,10 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 
 export const jsfHandlerChipListDropdownCompatibility: HandlerCompatibilityInterface = {
 
-  formDefinition: jsfHandlerCommonChipListFormJsfDefinition,
-  title         : 'Chip list',
-  category      : 'Common',
+  formDefinition  : jsfHandlerCommonChipListFormJsfDefinition,
+  layoutDefinition: jsfHandlerCommonChipListLayoutJsfDefinition,
+  title           : 'Chip list',
+  category        : 'Common',
 
   compatibleWith: [
     {

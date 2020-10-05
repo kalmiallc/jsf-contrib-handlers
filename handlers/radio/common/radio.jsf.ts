@@ -1,6 +1,6 @@
-import { EditorInterfaceLayoutFactory, HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
-import { JsfProp }                                                                    from '@kalmia/jsf-common-es2015/lib/schema';
-import { RadioMessages }                                                              from './messages';
+import { EditorInterfaceLayoutFactory, HandlerCompatibilityInterface, JsfDefinition, wrapKeyDynamic } from '@kalmia/jsf-common-es2015';
+import { JsfProp }                                                                                    from '@kalmia/jsf-common-es2015/lib/schema';
+import { RadioMessages }                                                                              from './messages';
 
 const jsfHandlerCommonRadioFormJsfDefinition: JsfDefinition = {
   schema: {
@@ -13,38 +13,14 @@ const jsfHandlerCommonRadioFormJsfDefinition: JsfDefinition = {
           properties: {
             value  : {
               type : 'number',
-              title: 'Value'
             },
             label  : {
               type : 'string',
-              title: 'Label'
             },
             tooltip: {
               type : 'string',
-              title: 'Tooltip'
             }
           }
-        }
-      },
-      radioLayout: {
-        type   : 'string',
-        title  : 'Layout',
-        handler: {
-          type  : 'common/dropdown',
-          values: [
-            {
-              label: 'block',
-              value: 'block'
-            },
-            {
-              label: 'inline',
-              value: 'inline'
-            },
-            {
-              label: 'flex',
-              value: 'flex'
-            }
-          ]
         }
       }
     }
@@ -52,93 +28,30 @@ const jsfHandlerCommonRadioFormJsfDefinition: JsfDefinition = {
   layout: {
     type : 'div',
     items: [
-      {
-        type : 'heading',
-        level: 5,
-        title: 'Items'
-      },
-      {
-        type     : 'div',
-        htmlClass: 'ml-3',
-        items    : [
+      ...EditorInterfaceLayoutFactory.outputArrayCardListKey('values',
+        { $eval: `return { value: 'Value' }`, dependencies: [] },
+        [
           {
-            type : 'array',
-            key  : 'values',
+            type: 'row',
             items: [
               {
-                type : 'row',
+                type: 'col',
+                xs: 6,
                 items: [
-                  {
-                    type : 'col',
-                    xs   : 'auto',
-                    items: [
-                      {
-                        key: 'values[].label'
-                      }
-                    ]
-                  },
-                  {
-                    type : 'col',
-                    xs   : 'auto',
-                    items: [
-                      {
-                        key: 'values[].value'
-                      }
-                    ]
-                  },
-                  {
-                    type : 'col',
-                    xs   : 'auto',
-                    items: [
-                      {
-                        key: 'values[].tooltip'
-                      }
-                    ]
-                  },
-                  {
-                    type : 'col',
-                    xs   : 'content',
-                    items: [
-                      {
-                        type       : 'array-item-remove',
-                        icon       : 'delete',
-                        preferences: {
-                          variant: 'icon'
-                        },
-                        tooltip    : 'Remove radio item'
-                      }
-                    ]
-                  },
-                  {
-                    type : 'col',
-                    xs   : 12,
-                    items: [
-                      {
-                        type: 'hr'
-                      }
-                    ]
-                  }
+                  ...EditorInterfaceLayoutFactory.outputKey('values[].label', 'Label'),
+                ]
+              },
+              {
+                type: 'col',
+                xs: 6,
+                items: [
+                  ...EditorInterfaceLayoutFactory.outputKey('values[].value', 'Value')
                 ]
               }
             ]
           },
-          {
-            type : 'array-item-add',
-            path : 'values',
-            title: 'Add radio item'
-          }
-        ]
-      },
-      {
-        type     : 'heading',
-        level    : 5,
-        title    : 'Preferences',
-        htmlClass: 'mt-3'
-      },
-      {
-        key      : 'radioLayout',
-        htmlClass: 'ml-3'
-      }
+          ...EditorInterfaceLayoutFactory.outputKey('values[].tooltip', 'Tooltip')
+        ])
     ]
   }
 } as any;
@@ -204,6 +117,8 @@ export const jsfHandlerCommonRadioCompatibility: HandlerCompatibilityInterface =
   ],
 
   localization: {
-    translatableProperties: [() => Object.values(RadioMessages)]
+    translatableProperties: [() => Object.values(RadioMessages), (definition) => {
+      return Array.isArray(definition?.handler?.values) ? definition.handler.values.map(x => typeof x === 'object' ? x.label : x) : [];
+    }]
   }
 };

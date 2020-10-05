@@ -6,18 +6,24 @@ const jsfHandlerCommonCodeEditorFormJsfDefinition: JsfDefinition = {
   schema: {
     type      : 'object',
     properties: {
-      language: {
-        type   : 'string',
-        title  : 'Language',
-        handler: {
-          type  : 'common/dropdown',
-          values: [
-            { label: 'javascript', value: 'javascript' },
-            { label: 'typescript', value: 'typescript' },
-            { label: 'json', value: 'json' },
-            { label: 'css', value: 'css' },
-            { label: 'scss', value: 'scss' }
-          ]
+      options: {
+        type: 'object',
+        properties: {
+          language: {
+            type   : 'string',
+            title  : 'Language',
+            handler: {
+              type  : 'common/dropdown',
+              values: [
+                { label: 'Javascript', value: 'javascript' },
+                { label: 'Typescript', value: 'typescript' },
+                { label: 'HTML', value: 'html' },
+                { label: 'CSS', value: 'css' },
+                { label: 'SCSS', value: 'scss' },
+                { label: 'JSON', value: 'json' },
+              ]
+            }
+          }
         }
       }
     }
@@ -25,20 +31,11 @@ const jsfHandlerCommonCodeEditorFormJsfDefinition: JsfDefinition = {
   layout: {
     type : 'div',
     items: [
-      {
-        type : 'heading',
-        level: 5,
-        title: 'Language'
-      },
-      {
-        type     : 'div',
-        htmlClass: 'ml-3',
-        items    : [
-          {
-            key: 'language'
-          }
-        ]
-      }
+      ...EditorInterfaceLayoutFactory.createPanelGroup([
+        ...EditorInterfaceLayoutFactory.createPanel('Code editor', [
+          ...EditorInterfaceLayoutFactory.outputKey('options.language', 'Language')
+        ])
+      ])
     ]
   }
 } as any;

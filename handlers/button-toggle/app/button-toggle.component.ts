@@ -17,7 +17,7 @@ import {
   ShowValidationMessagesDirective
 }                                                                                                        from '@kalmia/jsf-app';
 import { BreakpointState }                                                                               from '@angular/cdk/layout';
-import { takeUntil }                                                                                     from 'rxjs/internal/operators';
+import { takeUntil }                                                                                     from 'rxjs/operators';
 import { isEqual } from 'lodash';
 
 interface ButtonTogglePreferences {

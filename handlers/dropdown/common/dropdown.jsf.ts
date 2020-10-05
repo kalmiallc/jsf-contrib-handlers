@@ -187,6 +187,8 @@ export const jsfHandlerCommonDropdownCompatibility: HandlerCompatibilityInterfac
   ],
 
   localization: {
-    translatableProperties: [() => Object.values(DropdownMessages)]
+    translatableProperties: [() => Object.values(DropdownMessages), (definition) => {
+      return Array.isArray(definition?.handler?.values) ? definition.handler.values.map(x => typeof x === 'object' ? x.label : x) : [];
+    }]
   }
 };

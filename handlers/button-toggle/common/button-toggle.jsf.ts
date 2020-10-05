@@ -1,130 +1,123 @@
-import { JsfDefinition, HandlerCompatibilityInterface, EditorInterfaceLayoutFactory } from '@kalmia/jsf-common-es2015';
-import { JsfProp, JsfPropObject }                       from '@kalmia/jsf-common-es2015/lib/schema';
-import { BreakpointOrCustomSize }                       from '@kalmia/jsf-app/lib/kal-jsf-doc/services/responsive.service';
+import {
+  EditorInterfaceLayoutFactory,
+  EditorInterfaceSchemaFactory,
+  HandlerCompatibilityInterface,
+  JsfDefinition,
+  wrapKeyDynamic
+}                  from '@kalmia/jsf-common-es2015';
+import { JsfProp } from '@kalmia/jsf-common-es2015/lib/schema';
 
 const jsfHandlerCommonButtonToggleFormJsfDefinition: JsfDefinition = {
   schema: {
-    type: 'object',
+    type      : 'object',
     properties: {
-      values: {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            value: {
-              type: 'number',
-              title: 'Value'
-            },
-            label: {
-              type: 'string',
-              title: 'Label'
-            },
-            icon: {
-              type: 'string',
-              title: 'Icon'
+      ...EditorInterfaceSchemaFactory.createDynamicSwitchableProperty('', 'values', [
+        {
+          typeKey       : 'static',
+          typeName      : 'Static',
+          propDefinition: {
+            type : 'array',
+            items: {
+              type      : 'object',
+              properties: {
+                label: {
+                  type: 'string'
+                },
+                value: {
+                  type    : '@@PROP_TYPE',
+                  required: true
+                }
+              }
+            }
+          }
+        },
+        {
+          typeKey       : 'eval',
+          typeName      : 'Eval',
+          propDefinition: {
+            type      : 'object',
+            properties: {
+              ...EditorInterfaceSchemaFactory.createEvalPropertyWithDependencies()
+            }
+          }
+        },
+        {
+          typeKey       : 'provider',
+          typeName      : 'Provider',
+          propDefinition: {
+            type      : 'object',
+            properties: {
+              provider: EditorInterfaceSchemaFactory.createJsfProviderExecutorProperty('', wrapKeyDynamic('provider'))[`${ wrapKeyDynamic('provider') }`]
             }
           }
         }
-      },
-      enabledItemsRadioLike: {
-        type: 'boolean',
-        title: 'Enabled items radio like'
-      }
+      ])
     }
   },
   layout: {
-    type: 'div',
+    type : 'div',
     items: [
-      {
-        type: 'heading',
-        level: 5,
-        title: 'Items'
-      },
-      {
-        type: 'div',
-        htmlClass: 'ml-3',
-        items: [
-          {
-            type: 'array',
-            key: 'values',
-            items: [
-              {
-                type: 'row',
+      ...EditorInterfaceLayoutFactory.createPanelGroup([
+        ...EditorInterfaceLayoutFactory.createPanel('Button toggle', [
+          ...EditorInterfaceLayoutFactory.outputDynamicSwitchablePropKey('', 'values', 'Values', [
+            {
+              typeKey         : 'static',
+              layoutDefinition: {
+                type : 'div',
                 items: [
-                  {
-                    type: 'col',
-                    xs: 'auto',
-                    items: [
+                  ...EditorInterfaceLayoutFactory.outputArrayCardListKey(wrapKeyDynamic('static'),
+                    { $eval: `return { value: 'Value' }`, dependencies: [] },
+                    [
                       {
-                        key: 'values[].label'
+                        type : 'row',
+                        items: [
+                          {
+                            type : 'col',
+                            xs   : 6,
+                            items: [
+                              ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('static[].label'), 'Label')
+                            ]
+                          },
+                          {
+                            type : 'col',
+                            xs   : 6,
+                            items: [
+                              ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('static[].value'), 'Value')
+                            ]
+                          }
+                        ]
                       }
                     ]
-                  },
-                  {
-                    type: 'col',
-                    xs: 'auto',
-                    items: [
-                      {
-                        key: 'values[].value'
-                      }
-                    ]
-                  },
-                  {
-                    type: 'col',
-                    xs: 'auto',
-                    items: [
-                      {
-                        key: 'values[].icon'
-                      }
-                    ]
-                  },
-                  {
-                    type: 'col',
-                    xs: 'content',
-                    items: [
-                      {
-                        type: 'array-item-remove',
-                        icon: 'delete',
-                        preferences: {
-                          variant: 'icon'
-                        },
-                        tooltip: 'Remove button-toggle item'
-                      }
-                    ]
-                  },
-                  {
-                    type: 'col',
-                    xs: 12,
-                    items: [
-                      {
-                        type: 'hr'
-                      }
-                    ]
-                  }
+                  )
                 ]
               }
-            ]
-          },
-          {
-            type: 'array-item-add',
-            path: 'values',
-            title: 'Add button-toggle item'
-          }
-        ]
-      },
-      {
-        type: 'heading',
-        level: 5,
-        title: 'Preferences',
-        htmlClass: 'mt-3'
-      },
-      {
-        key: 'enabledItemsRadioLike',
-        htmlClass: 'ml-3'
-      }
+            },
+            {
+              typeKey         : 'eval',
+              layoutDefinition: {
+                type : 'div',
+                items: [
+                  ...EditorInterfaceLayoutFactory.outputKeyWithCodeEditor(wrapKeyDynamic('eval.$eval'), 'Eval'),
+                  ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('eval.dependencies'), 'Dependencies')
+                ]
+              }
+            },
+            {
+              typeKey         : 'provider',
+              layoutDefinition: {
+                type : 'div',
+                items: [
+                  ...EditorInterfaceLayoutFactory.outputJsfProviderExecutorProperty('', wrapKeyDynamic('provider.provider'))
+                ]
+              }
+            }
+          ])
+        ])
+      ])
     ]
   }
 } as any;
+
 
 export const jsfHandlerCommonButtonToggleLayoutJsfDefinition: any = {
   schema: {
@@ -134,40 +127,40 @@ export const jsfHandlerCommonButtonToggleLayoutJsfDefinition: any = {
         type      : 'object',
         properties: {
           variant: {
-            type : 'string',
+            type   : 'string',
             handler: {
-              type: 'common/dropdown',
+              type  : 'common/dropdown',
               values: [
                 { label: 'Basic', value: 'basic' },
                 { label: 'Tiles', value: 'tile' },
-                { label: 'Large tiles', value: 'tile-large' },
+                { label: 'Large tiles', value: 'tile-large' }
               ]
             },
-            default: 'basic',
+            default: 'basic'
           },
 
-          displayModeBreakpoint    : {
-            type : 'string',
-              handler: {
-              type: 'common/dropdown',
-                values: [
+          displayModeBreakpoint: {
+            type   : 'string',
+            handler: {
+              type  : 'common/dropdown',
+              values: [
                 { label: 'XS', value: 'xs' },
                 { label: 'SM', value: 'sm' },
                 { label: 'MD', value: 'md' },
                 { label: 'LG', value: 'lg' },
-                { label: 'XL', value: 'xl' },
+                { label: 'XL', value: 'xl' }
               ]
             }
           },
 
           showSelectedCheckMark: {
-            type: 'boolean',
+            type : 'boolean',
             title: 'Show selected check mark'
           },
 
           scaleModeTilesPerRow: {
-            type: 'integer',
-            minimum: 1,
+            type   : 'integer',
+            minimum: 1
           }
         }
       }
@@ -181,7 +174,7 @@ export const jsfHandlerCommonButtonToggleLayoutJsfDefinition: any = {
           ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.variant', 'Variant'),
           ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.displayModeBreakpoint', 'Display mode breakpoint'),
           ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.showSelectedCheckMark'),
-          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.scaleModeTilesPerRow', 'Tiles per row in scale mode'),
+          ...EditorInterfaceLayoutFactory.outputKey('handlerPreferences.scaleModeTilesPerRow', 'Tiles per row in scale mode')
         ])
       ])
     ]
@@ -195,11 +188,11 @@ const formDefinitionTransform = (x: any, prop: JsfProp) => {
 
 export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInterface = {
 
-  formDefinition: jsfHandlerCommonButtonToggleFormJsfDefinition,
+  formDefinition  : jsfHandlerCommonButtonToggleFormJsfDefinition,
   layoutDefinition: jsfHandlerCommonButtonToggleLayoutJsfDefinition,
-  title: 'Button Toggle',
-  icon: 'handler-icons/button-toggle.svg',
-  category: 'Common',
+  title           : 'Button toggle',
+  icon            : 'handler-icons/button-toggle.svg',
+  category        : 'Common',
 
   compatibleWith: [
     {
@@ -215,6 +208,8 @@ export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInte
   ],
 
   localization: {
-    translatableProperties: []
+    translatableProperties: [(definition) => {
+      return Array.isArray(definition?.handler?.values) ? definition.handler.values.map(x => typeof x === 'object' ? x.label : x) : [];
+    }]
   }
 };
