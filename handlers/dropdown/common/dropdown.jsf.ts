@@ -1,136 +1,131 @@
-import { EditorInterfaceLayoutFactory, HandlerCompatibilityInterface, JsfDefinition } from '@kalmia/jsf-common-es2015';
-import { JsfProp }                                                                    from '@kalmia/jsf-common-es2015/lib/schema';
-import { DropdownMessages }                                                           from './messages';
+import {
+  EditorInterfaceLayoutFactory,
+  EditorInterfaceSchemaFactory,
+  HandlerCompatibilityInterface,
+  JsfDefinition,
+  wrapKeyDynamic
+}                           from '@kalmia/jsf-common-es2015';
+import { DropdownMessages } from './messages';
 
 const jsfHandlerCommonDropdownFormJsfDefinition: JsfDefinition = {
   schema: {
     type      : 'object',
     properties: {
-      stepperButtons: {
-        type : 'boolean',
-        title: 'Stepper buttons'
+      options: {
+        type      : 'object',
+        properties: {
+          updatePropOnValuesListChange: {
+            type   : 'boolean',
+            title  : 'Perform update on values list change',
+            default: true
+          }
+        }
       },
-      searchable    : {
-        type : 'boolean',
-        title: 'Searchable'
-      },
-      values        : {
-        type : 'array',
-        items: {
-          type      : 'object',
-          properties: {
-            value: {
-              type : 'number',
-              title: 'Value'
-            },
-            label: {
-              type : 'string',
-              title: 'Label'
+
+      ...EditorInterfaceSchemaFactory.createDynamicSwitchableProperty('', 'values', [
+        {
+          typeKey       : 'static',
+          typeName      : 'Static',
+          propDefinition: {
+            type : 'array',
+            items: {
+              type      : 'object',
+              properties: {
+                label: {
+                  type: 'string'
+                },
+                value: {
+                  type    : '@@PROP_TYPE',
+                  required: true
+                }
+              }
+            }
+          }
+        },
+        {
+          typeKey       : 'eval',
+          typeName      : 'Eval',
+          propDefinition: {
+            type      : 'object',
+            properties: {
+              ...EditorInterfaceSchemaFactory.createEvalPropertyWithDependencies()
+            }
+          }
+        },
+        {
+          typeKey       : 'provider',
+          typeName      : 'Provider',
+          propDefinition: {
+            type: 'object',
+            properties: {
+              provider: EditorInterfaceSchemaFactory.createJsfProviderExecutorProperty('', wrapKeyDynamic('provider'))[`${ wrapKeyDynamic('provider') }`]
             }
           }
         }
-      }
+      ])
     }
   },
   layout: {
     type : 'div',
     items: [
-      {
-        type : 'heading',
-        level: 5,
-        title: 'Items'
-      },
-      {
-        type     : 'div',
-        htmlClass: 'ml-3',
-        items    : [
-          {
-            type     : 'div',
-            htmlClass: 'mt-3',
-            items    : [
-              {
-                type : 'array',
-                key  : 'values',
+      ...EditorInterfaceLayoutFactory.createPanelGroup([
+        ...EditorInterfaceLayoutFactory.createPanel('Dropdown', [
+          ...EditorInterfaceLayoutFactory.outputDynamicSwitchablePropKey('', 'values', 'Values', [
+            {
+              typeKey         : 'static',
+              layoutDefinition: {
+                type: 'div',
                 items: [
-                  {
-                    type : 'row',
-                    items: [
+                  ...EditorInterfaceLayoutFactory.outputArrayCardListKey(wrapKeyDynamic('static'),
+                    { $eval: `return { value: 'Value' }`, dependencies: [] },
+                    [
                       {
-                        type : 'col',
-                        xs   : 'auto',
+                        type: 'row',
                         items: [
                           {
-                            type : 'row',
+                            type: 'col',
+                            xs: 6,
                             items: [
-                              {
-                                type : 'col',
-                                xs   : 6,
-                                items: [
-                                  {
-                                    key: 'values[].label'
-                                  }
-                                ]
-                              },
-                              {
-                                type : 'col',
-                                xs   : 6,
-                                items: [
-                                  {
-                                    key: 'values[].value'
-                                  }
-                                ]
-                              }
+                              ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('static[].label'), 'Label'),
                             ]
-                          }
-                        ]
-                      },
-                      {
-                        type : 'col',
-                        xs   : 'content',
-                        items: [
+                          },
                           {
-                            type       : 'array-item-remove',
-                            icon       : 'delete',
-                            preferences: {
-                              variant: 'icon'
-                            },
-                            tooltip    : 'Remove dropdown item'
+                            type: 'col',
+                            xs: 6,
+                            items: [
+                              ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('static[].value'), 'Value')
+                            ]
                           }
                         ]
                       }
                     ]
-                  }
+                  )
                 ]
-              },
-              {
-                type : 'array-item-add',
-                path : 'values',
-                title: 'Add dropdown item'
               }
-            ]
-          }
-        ]
-      },
-      {
-        type     : 'heading',
-        level    : 5,
-        title    : 'Preferences',
-        htmlClass: 'mt-3'
-      },
-      {
-        type     : 'div',
-        htmlClass: 'ml-3',
-        items    : [
-          {
-            key      : 'stepperButtons',
-            htmlClass: 'mb-3'
-          },
-          {
-            key      : 'searchable',
-            htmlClass: 'mb-3'
-          }
-        ]
-      }
+            },
+            {
+              typeKey         : 'eval',
+              layoutDefinition: {
+                type: 'div',
+                items: [
+                  ...EditorInterfaceLayoutFactory.outputKeyWithCodeEditor(wrapKeyDynamic('eval.$eval'), 'Eval'),
+                  ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('eval.dependencies'), 'Dependencies')
+                ]
+              }
+            },
+            {
+              typeKey: 'provider',
+              layoutDefinition: {
+                type: 'div',
+                items: [
+                  ...EditorInterfaceLayoutFactory.outputJsfProviderExecutorProperty('', wrapKeyDynamic('provider.provider'))
+                ]
+              }
+            }
+          ]),
+          ...EditorInterfaceLayoutFactory.outputKey('options.updatePropOnValuesListChange')
+        ])
+      ])
     ]
   }
 } as any;
@@ -168,11 +163,6 @@ export const jsfHandlerCommonDropdownLayoutJsfDefinition: any = {
 };
 
 
-const formDefinitionTransform = (x: any, prop: JsfProp) => {
-  x.schema.properties.values.items.properties.value.type = prop.type;
-  return x;
-};
-
 export const jsfHandlerCommonDropdownCompatibility: HandlerCompatibilityInterface = {
 
   formDefinition  : jsfHandlerCommonDropdownFormJsfDefinition,
@@ -183,14 +173,16 @@ export const jsfHandlerCommonDropdownCompatibility: HandlerCompatibilityInterfac
 
   compatibleWith: [
     {
-      type: 'string',
-      formDefinitionTransform
-    }, {
-      type: 'number',
-      formDefinitionTransform // <- optional
-    }, {
-      type: 'integer',
-      formDefinitionTransform // <- optional can also be direct: (x, p) => { return x }
+      type: 'string'
+    },
+    {
+      type: 'number'
+    },
+    {
+      type: 'integer'
+    },
+    {
+      type: 'array'
     }
   ],
 
