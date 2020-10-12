@@ -345,8 +345,6 @@ export const popoverMenuAnimations: {
                                               <!-- Color tile -->
                                               <div class="tile"
                                                    (click)="selectColor(color.value, $event); closePopoverMenu()"
-                                                   [matTooltip]="i18n(color.label)"
-                                                   [matTooltipDisabled]="!i18n(color.label)"
                                                    [style.width]="popoverMenuTileSize"
                                                    [class.selected]="isColorSelected(color.value)"
                                                    [class.light]="color.lightness ? color.lightness === 'light' : (color.color ? isLightColor(color.color) : true)"
@@ -363,6 +361,10 @@ export const popoverMenuAnimations: {
                                                                    [class.visible]="isColorSelected(color.value)">
                                                                   <mat-icon>check</mat-icon>
                                                               </div>
+                                                          </div>
+
+                                                          <div class="tile-color-name no-text-selection">
+                                                              <span>{{ i18n(color.label) }}</span>
                                                           </div>
                                                       </div>
                                                   </div>
