@@ -13,32 +13,47 @@ import {
   TemplateRef,
   ViewChild,
   ViewContainerRef
-}                                                                                                             from '@angular/core';
+}                                     from '@angular/core';
 import {
   JsfLayoutOnClickInterface,
   JsfLayoutPropStringPreferences,
   JsfPropBuilderString,
   JsfPropLayoutBuilder
-}                                                                                                             from '@kalmia/jsf-common-es2015';
+}                                     from '@kalmia/jsf-common-es2015';
 import {
   ColorPickerBuilder,
   ColorPickerItem
-}                                                                                                             from '../common/color-picker.builder';
-import { AbstractPropHandlerComponent, colorUtils, jsfDefaultScrollOptions, ShowValidationMessagesDirective } from '@kalmia/jsf-app';
-import { ColorPickerMessages }                                                                                from '../common/messages';
-import Color                                                                                                  from 'color';
-import { DomSanitizer }                                                                                       from '@angular/platform-browser';
-import { takeUntil }                                                                                          from 'rxjs/operators';
+}                                     from '../common/color-picker.builder';
+import {
+  AbstractPropHandlerComponent,
+  colorUtils,
+  jsfDefaultScrollOptions,
+  OverlayScrollbarsService,
+  ShowValidationMessagesDirective
+}                                     from '@kalmia/jsf-app';
+import { ColorPickerMessages }        from '../common/messages';
+import Color                          from 'color';
+import { DomSanitizer }               from '@angular/platform-browser';
+import { takeUntil }                  from 'rxjs/operators';
 import {
   Overlay,
   OverlayRef
-}                                                                                                             from '@angular/cdk/overlay';
-import { TemplatePortal }                                                                                     from '@angular/cdk/portal';
-import { merge, Subject }                                                                                     from 'rxjs';
-import { animate, AnimationTriggerMetadata, state, style, transition, trigger }                               from '@angular/animations';
-import * as OverlayScrollbars                                                                                 from 'overlayscrollbars';
-import { OverlayScrollbarsComponent }                                                                         from 'overlayscrollbars-ngx';
-import { OverlayScrollbarsService }                                                                           from '@kalmia/jsf-app/lib/kal-jsf-doc/services/overlay-scrollbars.service';
+}                                     from '@angular/cdk/overlay';
+import { TemplatePortal }             from '@angular/cdk/portal';
+import {
+  merge,
+  Subject
+}                                     from 'rxjs';
+import {
+  animate,
+  AnimationTriggerMetadata,
+  state,
+  style,
+  transition,
+  trigger
+}                                     from '@angular/animations';
+import * as OverlayScrollbars         from 'overlayscrollbars';
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx';
 
 interface ColorPickerOptions {
   mode: 'ral' | 'custom';

@@ -9,7 +9,7 @@ import {
   OnInit,
   Optional,
   ViewChild
-}                                                                                                 from '@angular/core';
+}                                     from '@angular/core';
 import {
   JsfLayoutPropPreferences,
   JsfLayoutPropStringPreferences,
@@ -20,15 +20,22 @@ import {
   JsfPropBuilderString,
   JsfPropLayoutBuilder,
   JsfProviderExecutorStatus
-}                                                                                                 from '@kalmia/jsf-common-es2015';
-import { DropdownItem, HandlerDropdownBuilder }                                                   from '../common/dropdown.builder';
-import { AbstractPropHandlerComponent, jsfDefaultScrollOptions, ShowValidationMessagesDirective } from '@kalmia/jsf-app';
-import { takeUntil }                                                                              from 'rxjs/operators';
-import { DropdownMessages }                                                                       from '../common';
-import * as OverlayScrollbars                                                                     from 'overlayscrollbars';
-import { isEqual }                                                                                from 'lodash';
-import { OverlayScrollbarsComponent }                                                             from 'overlayscrollbars-ngx';
-import { OverlayScrollbarsService }                                                               from '@kalmia/jsf-app/lib/kal-jsf-doc/services/overlay-scrollbars.service';
+}                                     from '@kalmia/jsf-common-es2015';
+import {
+  DropdownItem,
+  HandlerDropdownBuilder
+}                                     from '../common/dropdown.builder';
+import {
+  AbstractPropHandlerComponent,
+  jsfDefaultScrollOptions,
+  OverlayScrollbarsService,
+  ShowValidationMessagesDirective
+}                                     from '@kalmia/jsf-app';
+import { takeUntil }                  from 'rxjs/operators';
+import { DropdownMessages }           from '../common';
+import * as OverlayScrollbars         from 'overlayscrollbars';
+import { isEqual }                    from 'lodash';
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-ngx';
 
 interface DropdownPreferences {
   stepperButtons?: boolean;
