@@ -13,30 +13,32 @@ import {
   TemplateRef,
   ViewChild,
   ViewContainerRef
-}                                                                                    from '@angular/core';
+}                                                                                                             from '@angular/core';
 import {
   JsfLayoutOnClickInterface,
   JsfLayoutPropStringPreferences,
   JsfPropBuilderString,
   JsfPropLayoutBuilder
-}                                                                                    from '@kalmia/jsf-common-es2015';
+}                                                                                                             from '@kalmia/jsf-common-es2015';
 import {
   ColorPickerBuilder,
   ColorPickerItem
-}                                                                                    from '../common/color-picker.builder';
-import { AbstractPropHandlerComponent, colorUtils, ShowValidationMessagesDirective } from '@kalmia/jsf-app';
-import { ColorPickerMessages }                                                       from '../common/messages';
-import Color                                                                         from 'color';
-import { DomSanitizer }                                                              from '@angular/platform-browser';
-import { takeUntil }                                                                 from 'rxjs/operators';
+}                                                                                                             from '../common/color-picker.builder';
+import { AbstractPropHandlerComponent, colorUtils, jsfDefaultScrollOptions, ShowValidationMessagesDirective } from '@kalmia/jsf-app';
+import { ColorPickerMessages }                                                                                from '../common/messages';
+import Color                                                                                                  from 'color';
+import { DomSanitizer }                                                                                       from '@angular/platform-browser';
+import { takeUntil }                                                                                          from 'rxjs/operators';
 import {
   Overlay,
   OverlayRef
-}                                                                                    from '@angular/cdk/overlay';
-import { TemplatePortal }                                                            from '@angular/cdk/portal';
-import { merge, Subject }                                                            from 'rxjs';
-import { animate, AnimationTriggerMetadata, state, style, transition, trigger }      from '@angular/animations';
-import * as OverlayScrollbars                                                        from 'overlayscrollbars';
+}                                                                                                             from '@angular/cdk/overlay';
+import { TemplatePortal }                                                                                     from '@angular/cdk/portal';
+import { merge, Subject }                                                                                     from 'rxjs';
+import { animate, AnimationTriggerMetadata, state, style, transition, trigger }                               from '@angular/animations';
+import * as OverlayScrollbars                                                                                 from 'overlayscrollbars';
+import { OverlayScrollbarsComponent }                                                                         from 'overlayscrollbars-ngx';
+import { OverlayScrollbarsService }                                                                           from '@kalmia/jsf-app/lib/kal-jsf-doc/services/overlay-scrollbars.service';
 
 interface ColorPickerOptions {
   mode: 'ral' | 'custom';
@@ -398,10 +400,15 @@ export class ColorPickerComponent extends AbstractPropHandlerComponent<JsfPropBu
   @Input()
   layoutBuilder: JsfPropLayoutBuilder<JsfPropBuilderString>;
 
+  @ViewChild(OverlayScrollbarsComponent, { static: false })
+  osComponent: OverlayScrollbarsComponent;
+
+
   messages  = ColorPickerMessages;
   ralColors = colorUtils.getAllRalColors();
 
   public readonly scrollOptions: OverlayScrollbars.Options = {
+    ...jsfDefaultScrollOptions,
     overflowBehavior: {
       x: 'hidden',
       y: 'scroll'
@@ -543,6 +550,7 @@ export class ColorPickerComponent extends AbstractPropHandlerComponent<JsfPropBu
               @Optional() protected showValidation: ShowValidationMessagesDirective,
               protected sanitizer: DomSanitizer,
               protected overlay: Overlay,
+              private osService: OverlayScrollbarsService,
               protected vcr: ViewContainerRef) {
     super(cdRef, showValidation);
   }
@@ -652,6 +660,8 @@ export class ColorPickerComponent extends AbstractPropHandlerComponent<JsfPropBu
       clearInterval(this.elementVisibilityInterval);
       this.elementVisibilityInterval = void 0;
     }
+
+    this.osService.deregisterOverlayScrollbarsInstance(this.osComponent?.osInstance());
   }
 
   ngAfterViewInit(): void {
@@ -663,6 +673,8 @@ export class ColorPickerComponent extends AbstractPropHandlerComponent<JsfPropBu
         this.updateColorTileSize();
       }, 0);
     }
+
+    this.osService.registerOverlayScrollbarsInstance(this.osComponent?.osInstance());
   }
 
   checkVisibilityState() {
@@ -817,7 +829,7 @@ export class ColorPickerComponent extends AbstractPropHandlerComponent<JsfPropBu
       scrollStrategy  : this.overlay.scrollStrategies.reposition(),
       // Use transparent backdrop
       hasBackdrop     : true,
-      backdropClass   : 'cdk-overlay-transparent-backdrop',
+      backdropClass   : 'cdk-overlay-transparent-backdrop'
     });
 
     // Put template to a portal

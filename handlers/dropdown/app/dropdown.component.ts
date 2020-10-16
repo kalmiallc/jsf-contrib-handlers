@@ -1,19 +1,34 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  ViewChild
+}                                                                                                 from '@angular/core';
 import {
   JsfLayoutPropPreferences,
-  JsfLayoutPropStringPreferences, JsfPropBuilderArray, JsfPropBuilderId,
+  JsfLayoutPropStringPreferences,
+  JsfPropBuilderArray,
+  JsfPropBuilderId,
   JsfPropBuilderInteger,
   JsfPropBuilderNumber,
   JsfPropBuilderString,
   JsfPropLayoutBuilder,
   JsfProviderExecutorStatus
-} from '@kalmia/jsf-common-es2015';
-import { DropdownItem, HandlerDropdownBuilder } from '../common/dropdown.builder';
-import { AbstractPropHandlerComponent }         from '@kalmia/jsf-app';
-import { takeUntil }                            from 'rxjs/operators';
-import { DropdownMessages }                     from '../common';
-import * as OverlayScrollbars                   from 'overlayscrollbars';
-import { isEqual } from 'lodash';
+}                                                                                                 from '@kalmia/jsf-common-es2015';
+import { DropdownItem, HandlerDropdownBuilder }                                                   from '../common/dropdown.builder';
+import { AbstractPropHandlerComponent, jsfDefaultScrollOptions, ShowValidationMessagesDirective } from '@kalmia/jsf-app';
+import { takeUntil }                                                                              from 'rxjs/operators';
+import { DropdownMessages }                                                                       from '../common';
+import * as OverlayScrollbars                                                                     from 'overlayscrollbars';
+import { isEqual }                                                                                from 'lodash';
+import { OverlayScrollbarsComponent }                                                             from 'overlayscrollbars-ngx';
+import { OverlayScrollbarsService }                                                               from '@kalmia/jsf-app/lib/kal-jsf-doc/services/overlay-scrollbars.service';
 
 interface DropdownPreferences {
   stepperButtons?: boolean;
@@ -59,7 +74,7 @@ interface DropdownPreferences {
                                                  [noEntriesFoundLabel]="i18n(messages.noResultsFound)">
                           </ngx-mat-select-search>
                       </mat-option>
-                      
+
                       <overlay-scrollbars [options]="scrollOptions">
                           <mat-option *ngIf="!required && !isArray" [value]="null">{{ i18n('--') }}</mat-option>
                           <mat-option *ngFor="let item of filteredItems; trackBy: trackByFn"
@@ -96,11 +111,14 @@ interface DropdownPreferences {
   styleUrls      : ['./dropdown.component.scss']
 })
 // tslint:disable-next-line:max-line-length
-export class DropdownComponent extends AbstractPropHandlerComponent<JsfPropBuilderString | JsfPropBuilderNumber | JsfPropBuilderInteger | JsfPropBuilderId | JsfPropBuilderArray, HandlerDropdownBuilder> implements OnInit, OnDestroy {
+export class DropdownComponent extends AbstractPropHandlerComponent<JsfPropBuilderString | JsfPropBuilderNumber | JsfPropBuilderInteger | JsfPropBuilderId | JsfPropBuilderArray, HandlerDropdownBuilder> implements OnInit, AfterViewInit, OnDestroy {
 
   @Input()
     // tslint:disable-next-line:max-line-length
-  layoutBuilder: JsfPropLayoutBuilder<JsfPropBuilderString | JsfPropBuilderNumber | JsfPropBuilderInteger | JsfPropBuilderId | JsfPropBuilderArray>;
+    layoutBuilder: JsfPropLayoutBuilder<JsfPropBuilderString | JsfPropBuilderNumber | JsfPropBuilderInteger | JsfPropBuilderId | JsfPropBuilderArray>;
+
+  @ViewChild(OverlayScrollbarsComponent, { static: false })
+  osComponent: OverlayScrollbarsComponent;
 
   private _search                         = void 0;
   private searchChange: EventEmitter<any> = new EventEmitter<any>();
@@ -108,6 +126,7 @@ export class DropdownComponent extends AbstractPropHandlerComponent<JsfPropBuild
   private _filteredItems: DropdownItem[] = [];
 
   public readonly scrollOptions: OverlayScrollbars.Options = {
+    ...jsfDefaultScrollOptions,
     overflowBehavior: {
       x: 'hidden',
       y: 'scroll'
@@ -227,7 +246,7 @@ export class DropdownComponent extends AbstractPropHandlerComponent<JsfPropBuild
     return {
       /* Defaults */
       stepperButtons: false,
-      searchable: false,
+      searchable    : false,
 
       /* Layout overrides */
       ...(this.layoutBuilder.layout.handlerPreferences)
@@ -254,6 +273,12 @@ export class DropdownComponent extends AbstractPropHandlerComponent<JsfPropBuild
       'number',
       'integer'
     ].indexOf((this.propBuilder.prop as any).type) > -1 ? 'remove' : 'keyboard_arrow_left';
+  }
+
+  constructor(protected cdRef: ChangeDetectorRef,
+              @Optional() protected showValidation: ShowValidationMessagesDirective,
+              private osService: OverlayScrollbarsService) {
+    super(cdRef, showValidation);
   }
 
   ngOnInit(): void {
@@ -302,8 +327,14 @@ export class DropdownComponent extends AbstractPropHandlerComponent<JsfPropBuild
       });
   }
 
+  ngAfterViewInit() {
+    this.osService.registerOverlayScrollbarsInstance(this.osComponent?.osInstance());
+  }
+
   ngOnDestroy(): void {
     super.ngOnDestroy();
+
+    this.osService.deregisterOverlayScrollbarsInstance(this.osComponent?.osInstance());
   }
 
   private updateFilteredItems() {
