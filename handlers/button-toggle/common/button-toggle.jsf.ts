@@ -25,6 +25,9 @@ const jsfHandlerCommonButtonToggleFormJsfDefinition: JsfDefinition = {
                 value: {
                   type    : '@@PROP_TYPE',
                   required: true
+                },
+                icon : {
+                  type: 'string'
                 }
               }
             }
@@ -84,7 +87,8 @@ const jsfHandlerCommonButtonToggleFormJsfDefinition: JsfDefinition = {
                               ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('static[].value'), 'Value')
                             ]
                           }
-                        ]
+                        ],
+                        ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('static[].icon'), 'Icon')
                       }
                     ]
                   )

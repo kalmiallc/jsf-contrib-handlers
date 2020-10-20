@@ -1,17 +1,26 @@
 import {
   Bind,
-  isI18nObject, isJsfProviderExecutor,
-  JsfBasicHandlerBuilder, JsfPropBuilderArray, JsfPropBuilderInteger, JsfPropBuilderNumber,
-  JsfPropBuilderString, JsfProviderConsumer, JsfProviderExecutor, JsfProviderExecutorInterface, JsfProviderExecutorStatus,
+  isI18nObject,
+  isJsfProviderExecutor,
+  JsfBasicHandlerBuilder,
+  JsfPropBuilderArray,
+  JsfPropBuilderInteger,
+  JsfPropBuilderNumber,
+  JsfPropBuilderString,
+  JsfProviderConsumer,
+  JsfProviderExecutor,
+  JsfProviderExecutorInterface,
+  JsfProviderExecutorStatus,
   JsfRegister,
-  JsfTranslatableMessage, JsfUnknownPropBuilder, PropStatus, PropStatusChangeInterface
-}                                             from '@kalmia/jsf-common-es2015';
-import { Subscription }                       from 'rxjs/internal/Subscription';
-import { Subject }                            from 'rxjs/internal/Subject';
-import { Observable }                         from 'rxjs/internal/Observable';
-import { takeUntil }                          from 'rxjs/internal/operators';
-import { isNil, isEqual, isPlainObject, differenceWith } from 'lodash';
-import { jsfHandlerCommonButtonToggleCompatibility } from './button-toggle.jsf';
+  JsfTranslatableMessage,
+  JsfUnknownPropBuilder,
+  PropStatus,
+  PropStatusChangeInterface
+}                                                        from '@kalmia/jsf-common-es2015';
+import { Observable, Subject, Subscription }             from 'rxjs';
+import { differenceWith, isEqual, isNil, isPlainObject } from 'lodash';
+import { jsfHandlerCommonButtonToggleCompatibility }     from './button-toggle.jsf';
+import { takeUntil }                                     from 'rxjs/operators';
 
 export interface ButtonToggleItem {
   value: any;
@@ -104,7 +113,7 @@ export class ButtonToggleBuilder extends JsfBasicHandlerBuilder<JsfPropBuilderSt
     this.clearSubscriptions();
 
     // Get initial items
-    const ctx = this.builder.rootBuilder.getEvalContext({
+    const ctx   = this.builder.rootBuilder.getEvalContext({
       propBuilder: this.builder
     });
     const items = this.builder.rootBuilder.runEvalWithContext((values as any).$evalTranspiled || values.$eval, ctx);
@@ -118,7 +127,7 @@ export class ButtonToggleBuilder extends JsfBasicHandlerBuilder<JsfPropBuilderSt
       this.subscriptions.push(
         this.builder.rootBuilder.listenForStatusChange(dependencyAbsolutePath).subscribe(async (status: PropStatusChangeInterface) => {
           if (status.status !== PropStatus.Pending) {
-            const depCtx = this.builder.rootBuilder.getEvalContext({
+            const depCtx   = this.builder.rootBuilder.getEvalContext({
               propBuilder: this.builder
             });
             const depItems = this.builder.rootBuilder.runEvalWithContext((values as any).$evalTranspiled || values.$eval, depCtx);
@@ -185,7 +194,7 @@ export class ButtonToggleBuilder extends JsfBasicHandlerBuilder<JsfPropBuilderSt
   private itemsUpdated() {
     this._itemsChanged.next();
 
-    const currentValue  = this.builder.getJsonValue();
+    const currentValue = this.builder.getJsonValue();
 
     if (isNil(currentValue)) {
       return;
@@ -196,7 +205,7 @@ export class ButtonToggleBuilder extends JsfBasicHandlerBuilder<JsfPropBuilderSt
 
       // Case where value is an array
       const newItems = currentArrayValue.filter(x => this.items.find(y => isEqual(x, y.value)) !== void 0);
-      const changes = differenceWith(currentArrayValue, [newItems], (a, b) => isEqual(a, b));
+      const changes  = differenceWith(currentArrayValue, [newItems], (a, b) => isEqual(a, b));
 
       if (changes.length) {
         (this.builder as JsfUnknownPropBuilder).setJsonValue(newItems)
