@@ -4,8 +4,7 @@ import {
   HandlerCompatibilityInterface,
   JsfDefinition,
   wrapKeyDynamic
-}                  from '@kalmia/jsf-common-es2015';
-import { JsfProp } from '@kalmia/jsf-common-es2015/lib/schema';
+} from '@kalmia/jsf-common-es2015';
 
 const jsfHandlerCommonButtonToggleFormJsfDefinition: JsfDefinition = {
   schema: {
@@ -181,10 +180,6 @@ export const jsfHandlerCommonButtonToggleLayoutJsfDefinition: any = {
   }
 };
 
-const formDefinitionTransform = (x: any, prop: JsfProp) => {
-  x.schema.properties.values.items.properties.value.type = prop.type;
-  return x;
-};
 
 export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInterface = {
 
@@ -196,14 +191,13 @@ export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInte
 
   compatibleWith: [
     {
-      type: 'string',
-      formDefinitionTransform
-    }, {
-      type: 'number',
-      formDefinitionTransform // <- optional
-    }, {
-      type: 'integer',
-      formDefinitionTransform // <- optional can also be direct: (x, p) => { return x }
+      type: 'string'
+    },
+    {
+      type: 'number'
+    },
+    {
+      type: 'integer'
     }
   ],
 
