@@ -202,6 +202,9 @@ export const jsfHandlerCommonButtonToggleCompatibility: HandlerCompatibilityInte
     },
     {
       type: 'integer'
+    },
+    {
+      type: 'array'
     }
   ],
 
