@@ -16,7 +16,6 @@ const jsfHandlerCommonColorPickerFormJsfDefinition: JsfDefinition = {
         properties: {
           mode: {
             type   : 'string',
-            title  : 'Mode',
             handler: {
               type  : 'common/button-toggle',
               values: [
@@ -105,7 +104,8 @@ const jsfHandlerCommonColorPickerFormJsfDefinition: JsfDefinition = {
             }
           }
         }
-      ])
+      ]),
+      ...EditorInterfaceLayoutFactory.outputKey('options.mode', 'Mode')
     }
   },
   layout: {
