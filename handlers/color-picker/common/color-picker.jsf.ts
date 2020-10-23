@@ -105,7 +105,6 @@ const jsfHandlerCommonColorPickerFormJsfDefinition: JsfDefinition = {
           }
         }
       ]),
-      ...EditorInterfaceLayoutFactory.outputKey('options.mode', 'Mode')
     }
   },
   layout: {
@@ -113,6 +112,7 @@ const jsfHandlerCommonColorPickerFormJsfDefinition: JsfDefinition = {
     items: [
       ...EditorInterfaceLayoutFactory.createPanelGroup([
         ...EditorInterfaceLayoutFactory.createPanel('Color picker', [
+          ...EditorInterfaceLayoutFactory.outputKey('options.mode', 'Mode'),
           ...EditorInterfaceLayoutFactory.outputDynamicSwitchablePropKey('', 'values', 'Values', [
             {
               typeKey         : 'static',
