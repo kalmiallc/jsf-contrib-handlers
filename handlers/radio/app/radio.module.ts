@@ -6,7 +6,7 @@ import { MatRadioModule }      from '@angular/material/radio';
 import { HandlerRadioBuilder } from '../common/radio.builder';
 import { FormsModule }         from '@angular/forms';
 import { JsfComponentsModule } from '@kalmia/jsf-app';
-import { MatTooltipModule }    from '@kalmia/material/tooltip';
+import { MatTooltipModule }    from '@angular/material/tooltip';
 
 @NgModule({
   imports        : [
