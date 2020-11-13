@@ -124,7 +124,7 @@ interface ButtonTogglePreferences {
           </div>
 
           <!-- Validation errors -->
-          <jsf-error-messages *ngIf="hasErrors" [messages]="interpolatedErrors"></jsf-error-messages>
+          <jsf-error-messages *ngIf="hasErrors" class="text-center" [messages]="interpolatedErrors"></jsf-error-messages>
       </div>
 
   `,
