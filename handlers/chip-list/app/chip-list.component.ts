@@ -30,45 +30,21 @@ export interface ChipListPreferences {
 @Component({
   selector       : 'app-chip-list',
   template       : `
-      <div class="handler-common-chip-list jsf-animatable"
-           [ngClass]="layoutSchema?.htmlClass || ''"
-           [class.jsf-handler-chip-list-variant-standard]="isVariantStandard()"
-           [class.jsf-handler-chip-list-variant-small]="isVariantSmall()">
-          <div class="chip-list"
-               [class.disabled]="disabled">
-              <mat-form-field [color]="themePreferences.color"
-                              [appearance]="themePreferences.appearance"
-                              class="jsf-form-field-chip-list"
-                              [class.jsf-mat-form-field-variant-standard]="isVariantStandard()"
-                              [class.jsf-mat-form-field-variant-small]="isVariantSmall()"
-                              jsfOutlineGapAutocorrect>
-                  <mat-chip-list #chipList>
-                      <mat-chip *ngFor="let chip of chips; trackBy: trackByFn"
-                                [selectable]="handlerPreferences.selectable"
-                                color="primary"
-                                [removable]="handlerPreferences.removable"
-                                (removed)="remove(chip)">
-                          {{ chip.value }}
-                          <mat-icon matChipRemove *ngIf="handlerPreferences.removable">cancel</mat-icon>
-                      </mat-chip>
-
-                      <input [placeholder]="i18n(layoutSchema?.placeholder || '')"
-                             [required]="propSchema?.required"
-                             [disabled]="disabled"
-                             [matChipInputFor]="chipList"
-                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                             [matChipInputAddOnBlur]="handlerPreferences.addOnBlur"
-                             (matChipInputTokenEnd)="add($event)">
-                  </mat-chip-list>
-
-
-                  <mat-hint *ngIf="propSchema?.description">{{ i18n(propSchema?.description) }}</mat-hint>
-
-                  <mat-error *ngFor="let error of propBuilder.errors">
-                      {{ error.interpolatedMessage }}
-                  </mat-error>
-              </mat-form-field>
-          </div>
+      <div class="handler-common-chip-list jsf-animatable">
+        <jsf-chip-list [htmlClass]="layoutSchema?.htmlClass || ''"
+                       [disabled]="disabled"
+                       [color]="themePreferences.color"
+                       [appearance]="themePreferences.appearance"
+                       [variant]="themePreferences.variant"
+                       [selectable]="handlerPreferences.selectable"
+                       [removable]="handlerPreferences.removable"
+                       [placeholder]="i18n(layoutSchema?.placeholder || '')"
+                       [required]="propSchema?.required"
+                       [addOnBlur]="handlerPreferences.addOnBlur"
+                       [description]="i18n(propSchema?.description)"
+                       [layoutBuilder]="layoutBuilder"
+                       [(ngModel)]="value">
+        </jsf-chip-list>
       </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -81,8 +57,6 @@ export class ChipListComponent extends AbstractPropHandlerComponent<JsfPropBuild
     // tslint:disable-next-line:max-line-length
     layoutBuilder: JsfPropLayoutBuilder<JsfPropBuilderArray>;
 
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA, SPACE];
-
   public messages = ChipListMessages;
 
   get required(): boolean {
@@ -91,35 +65,6 @@ export class ChipListComponent extends AbstractPropHandlerComponent<JsfPropBuild
 
   get disabled(): boolean {
     return this.propBuilder.disabled;
-  }
-
-  get chips() {
-    return (this.propBuilder.items || []).map(x => ({
-      propBuilder: x as any,
-      value      : x.getJsonValue()
-    } as ChipValue));
-  }
-
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.value = [...(this.value || []), value];
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-
-    this.cdRef.detectChanges();
-  }
-
-  remove(chip: ChipValue): void {
-    this.value = this.chips.filter(x => x.propBuilder.id !== chip.propBuilder.id).map(x => x.value);
-    this.cdRef.detectChanges();
   }
 
   get themePreferences(): JsfLayoutPropStringPreferences {
@@ -169,11 +114,4 @@ export class ChipListComponent extends AbstractPropHandlerComponent<JsfPropBuild
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
-
-  trackByFn(index: number, item: ChipValue) {
-    return item.propBuilder;
-  }
-
-  isVariantStandard = () => this.themePreferences.variant === 'standard';
-  isVariantSmall    = () => this.themePreferences.variant === 'small';
 }
