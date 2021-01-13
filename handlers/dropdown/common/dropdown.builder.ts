@@ -272,6 +272,13 @@ export class HandlerDropdownBuilder extends JsfBasicHandlerBuilder<JsfPropBuilde
         (x.enabledIf as any).$evalTranspiled || x.enabledIf.$eval, ctx);
     });
 
+    this._items = this._items.map(x => {
+      return {
+        ... x,
+        label: this.translationServer.get(x.label)
+      };
+    });
+
     this.itemsUpdated();
   }
 
