@@ -88,8 +88,8 @@ const jsfHandlerCommonButtonToggleFormJsfDefinition: JsfDefinition = {
                             ]
                           }
                         ],
-                        ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('static[].icon'), 'Icon')
-                      }
+                      },
+                      ...EditorInterfaceLayoutFactory.outputKey(wrapKeyDynamic('static[].icon'), 'Icon')
                     ]
                   )
                 ]
