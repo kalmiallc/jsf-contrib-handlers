@@ -351,7 +351,7 @@ export class HandlerDropdownBuilder extends JsfBasicHandlerBuilder<JsfPropBuilde
 
 
   findItemByValue(value: any): DropdownItem {
-    return this.items.find(x => x.value === value);
+    return this.items.find(x => isEqual(x.value, value));
   }
 
   getStaticTranslatableStrings(): JsfTranslatableMessage[] {
