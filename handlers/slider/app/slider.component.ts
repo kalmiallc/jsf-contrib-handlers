@@ -9,6 +9,7 @@ interface SliderPreferences {
   thumbLabel: boolean;
   tickInterval: boolean | 'auto' | number;
   invert: boolean;
+  color: 'accent' | 'primary';
 }
 
 @Component({
@@ -26,7 +27,8 @@ interface SliderPreferences {
                       [thumbLabel]="thumbLabel"
                       [tickInterval]="tickInterval"
                       [(ngModel)]="value"
-                      [vertical]="vertical">
+                      [vertical]="vertical"
+                      [color]="color">
           </mat-slider>
 
           <!-- Validation errors -->
@@ -69,6 +71,10 @@ export class SliderComponent extends AbstractPropHandlerComponent<JsfPropBuilder
     return this.handlerPreferences.orientation === 'vertical';
   }
 
+  get color() {
+    return this.handlerPreferences.color;
+  }
+
   get handlerPreferences(): SliderPreferences {
     return {
       /* Defaults */
@@ -76,6 +82,7 @@ export class SliderComponent extends AbstractPropHandlerComponent<JsfPropBuilder
       thumbLabel  : true,
       tickInterval: false,
       invert      : false,
+      color: 'accent',
 
       /* Layout overrides */
       ...(this.layoutBuilder.layout.handlerPreferences)
