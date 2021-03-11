@@ -22,6 +22,7 @@ import { isEqual }                                                              
 interface DropdownPreferences {
   stepperButtons?: boolean;
   searchable?: boolean;
+  sortSelectedToTop?: boolean;
 }
 
 @Component({
@@ -50,7 +51,8 @@ interface DropdownPreferences {
                     [iconPrevious]="iconPrevious"
                     [iconNext]="iconNext"
                     [items]="items"
-                    [description]="i18n(propSchema?.description)">
+                    [description]="i18n(propSchema?.description)"
+                    [sortSelectedToTop]="handlerPreferences.sortSelectedToTop">
       </jsf-dropdown>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -138,6 +140,7 @@ export class DropdownComponent extends AbstractPropHandlerComponent<JsfPropBuild
       /* Defaults */
       stepperButtons: false,
       searchable    : false,
+      sortSelectedToTop: false,
 
       /* Layout overrides */
       ...(this.layoutBuilder.layout.handlerPreferences)
