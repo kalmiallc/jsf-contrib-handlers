@@ -136,6 +136,10 @@ export const popoverMenuAnimations: {
                                   [class.jsf-mat-form-field-variant-small]="isStringVariantSmall()"
                                   class="mb-n2"
                                   jsfOutlineGapAutocorrect>
+                      <mat-label *ngIf="title"
+                                 [attr.for]="id">
+                          {{ title }}
+                      </mat-label>
                       <input matInput
                              type="search"
                              [(ngModel)]="search"
