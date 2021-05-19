@@ -48,7 +48,7 @@ export class ButtonToggleBuilder extends JsfBasicHandlerBuilder<JsfPropBuilderSt
                                                                 JsfPropBuilderArray> {
   type = 'common/button-toggle';
 
-  private _items: ButtonToggleItem[];
+  private _items: ButtonToggleItem[] = [];
   itemsProvider: JsfProviderExecutor;
 
   private subscriptions: Subscription[] = [];
