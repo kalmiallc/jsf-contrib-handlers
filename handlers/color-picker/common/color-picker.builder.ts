@@ -21,6 +21,8 @@ export interface ColorPickerItem {
   icon?: string;
   smallIcon?: string;
   smallIcon2?: string;
+  smallIconOnClick?: JsfLayoutOnClickInterface | JsfLayoutOnClickInterface[];
+  smallIcon2OnClick?: JsfLayoutOnClickInterface | JsfLayoutOnClickInterface[];
   zoomIcon?: {
     icon?: string;
     tooltip?: string;

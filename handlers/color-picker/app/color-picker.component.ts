@@ -232,12 +232,14 @@ export const popoverMenuAnimations: {
 
                                               <ng-container *ngIf="color.smallIcon">
                                                   <div class="tile-icon-small"
+                                                       (click)="smallIconClick(color.smallIconOnClick, $event)"
                                                        [style.background-image]="getBackgroundImageStyle(color.smallIcon)">
                                                   </div>
                                               </ng-container>
 
                                               <ng-container *ngIf="color.smallIcon2">
                                                   <div class="tile-icon-small2"
+                                                       (click)="smallIcon2Click(color.smallIcon2OnClick, $event)"
                                                        [style.background-image]="getBackgroundImageStyle(color.smallIcon2)">
                                                   </div>
                                               </ng-container>
@@ -777,6 +779,42 @@ export class ColorPickerComponent extends AbstractPropHandlerComponent<JsfPropBu
   }
 
   zoomIconClick(clickData: JsfLayoutOnClickInterface | JsfLayoutOnClickInterface[], $event: MouseEvent) {
+    if (!clickData) {
+      return;
+    }
+
+    if (this.disabled) {
+      return;
+    }
+
+    this.layoutBuilder.handleOnClick(clickData, $event)
+      .catch(e => {
+        console.error(e);
+        throw e;
+      });
+
+    $event.stopPropagation();
+  }
+
+  smallIconClick(clickData: JsfLayoutOnClickInterface | JsfLayoutOnClickInterface[], $event: MouseEvent) {
+    if (!clickData) {
+      return;
+    }
+
+    if (this.disabled) {
+      return;
+    }
+
+    this.layoutBuilder.handleOnClick(clickData, $event)
+      .catch(e => {
+        console.error(e);
+        throw e;
+      });
+
+    $event.stopPropagation();
+  }
+
+  smallIcon2Click(clickData: JsfLayoutOnClickInterface | JsfLayoutOnClickInterface[], $event: MouseEvent) {
     if (!clickData) {
       return;
     }
