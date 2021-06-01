@@ -234,6 +234,7 @@ export const popoverMenuAnimations: {
                                                   <div class="tile-icon-small"
                                                        (click)="smallIconClick(color.smallIconOnClick, $event)"
                                                        [style.background-image]="getBackgroundImageStyle(color.smallIcon)">
+                                                      <jsf-icon *ngIf="color.smallIconIcon" [icon]="color.smallIconIcon || 'info'"></jsf-icon>
                                                   </div>
                                               </ng-container>
 
@@ -241,6 +242,7 @@ export const popoverMenuAnimations: {
                                                   <div class="tile-icon-small2"
                                                        (click)="smallIcon2Click(color.smallIcon2OnClick, $event)"
                                                        [style.background-image]="getBackgroundImageStyle(color.smallIcon2)">
+                                                      <jsf-icon *ngIf="color.smallIcon2Icon" [icon]="color.smallIcon2Icon || 'info'"></jsf-icon>
                                                   </div>
                                               </ng-container>
 
