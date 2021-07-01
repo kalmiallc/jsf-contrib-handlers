@@ -90,6 +90,10 @@ interface ColorPickerPreferences {
    * Should colors be searchable.
    */
   searchable?: boolean;
+  /**
+   * Hides color tile title.
+   */
+  hideTitleInTile?: boolean;
 }
 
 export const popoverMenuAnimations: {
@@ -388,7 +392,7 @@ export const popoverMenuAnimations: {
                                                               </div>
                                                           </div>
 
-                                                          <div class="tile-color-name no-text-selection">
+                                                          <div class="tile-color-name no-text-selection" *ngIf="!handlerPreferences.hideTitleInTile">
                                                               <span>{{ i18n(color.label) }}</span>
                                                           </div>
                                                       </div>
@@ -951,6 +955,7 @@ export class ColorPickerComponent extends AbstractPropHandlerComponent<JsfPropBu
       tileHeightRatio: 100,
       tilePadding    : '2px',
       tilesPerRow    : null,
+      hideTitleInTile: false,
       searchable     : false,
 
       /* Layout overrides */
