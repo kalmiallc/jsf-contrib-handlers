@@ -374,6 +374,8 @@ export const popoverMenuAnimations: {
                                               <!-- Color tile -->
                                               <div class="tile"
                                                    (click)="selectColor(color.value, $event); closePopoverMenu()"
+                                                   [matTooltip]="color.tooltip"
+                                                   [matTooltipDisabled]="!color.tooltip"
                                                    [style.width]="popoverMenuTileSize"
                                                    [class.selected]="isColorSelected(color.value)"
                                                    [class.light]="color.lightness ? color.lightness === 'light' : (color.color ? isLightColor(color.color) : true)"

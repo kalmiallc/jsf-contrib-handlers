@@ -19,6 +19,7 @@ export interface ColorPickerItem {
   label?: string;
   color?: string;
   icon?: string;
+  tooltip?: string;
   smallIcon?: string;
   smallIcon2?: string;
   smallIconOnClick?: JsfLayoutOnClickInterface | JsfLayoutOnClickInterface[];
