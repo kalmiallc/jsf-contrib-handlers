@@ -175,6 +175,8 @@ export const popoverMenuAnimations: {
                               <!-- Color tile -->
                               <div *ngFor="let color of colorValues"
                                    class="tile"
+                                   [matTooltip]="color.tooltip"
+                                   [matTooltipDisabled]="!color.tooltip"
                                    (click)="selectColor(color.code, $event)"
                                    [style.width]="colorTileSize"
                                    [class.selected]="isColorSelected(color.code)"
@@ -220,6 +222,8 @@ export const popoverMenuAnimations: {
                               <!-- Color tile -->
                               <div *ngFor="let color of colorValues"
                                    class="tile"
+                                   [matTooltip]="color.tooltip"
+                                   [matTooltipDisabled]="!color.tooltip"
                                    (click)="selectColor(color.value, $event)"
                                    [style.width]="colorTileSize"
                                    [class.selected]="isColorSelected(color.value)"
