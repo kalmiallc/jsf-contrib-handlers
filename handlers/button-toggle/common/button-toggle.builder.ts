@@ -25,6 +25,7 @@ import { takeUntil }                                     from 'rxjs/operators';
 export interface ButtonToggleItem {
   value: any;
   label: string;
+  subLabel: string;
   icon?: string;
 
   /**

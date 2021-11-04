@@ -85,6 +85,9 @@ interface ButtonTogglePreferences {
                           <div class="label-container no-text-selection">
                               <span>{{ i18n(item.label) }}</span>
                           </div>
+                        <div *ngIf="item.subLabel" class="sublabel-container no-text-selection">
+                          <span>{{ i18n(item.subLabel) }}</span>
+                        </div>
                       </div>
                   </div>
               </div>
@@ -101,7 +104,7 @@ interface ButtonTogglePreferences {
                        jsfHoverClass="hover"
                        (click)="setSelectedItem(item, $event)"
                        [ngStyle]="{ 'width.%': scaleModeTileWidthPercentage }">
-          
+
                       <div class="inner-tile-large-container">
                           <div class="icon-container rounded">
                               <div class="icon rounded"
@@ -118,6 +121,10 @@ interface ButtonTogglePreferences {
                           <div class="label-container no-text-selection">
                               <span>{{ i18n(item.label) }}</span>
                           </div>
+                        <div *ngIf="item.subLabel" class="sublabel-container no-text-selection">
+                          <span>{{ i18n(item.subLabel) }}</span>
+                        </div>
+
                       </div>
                   </div>
               </div>

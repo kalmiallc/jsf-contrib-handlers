@@ -282,9 +282,19 @@ $swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
           text-align:      center;
           font-size:       14px;
           width:           100%;
-          padding:         5px 0;
+          padding-top:     5px;
           display:         flex;
           justify-content: center;
+        }
+
+        .sublabel-container {
+          text-align:      center;
+          font-size:       12px;
+          width:           100%;
+          padding-bottom:  5px;
+          display:         flex;
+          justify-content: center;
+          color:           #b2b2b2;
         }
       }
     }
@@ -393,9 +403,19 @@ $swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
           text-align:      center;
           font-size:       14px;
           width:           100%;
-          padding:         5px 0;
+          padding-top:     5px;
           display:         flex;
           justify-content: center;
+        }
+
+        .sublabel-container {
+          text-align:      center;
+          font-size:       12px;
+          width:           100%;
+          padding-bottom:  5px;
+          display:         flex;
+          justify-content: center;
+          color:           #b2b2b2;
         }
       }
     }
