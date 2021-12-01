@@ -34,11 +34,11 @@ $swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
             border-bottom-right-radius: 0 !important;
 
             &:not(.hover) {
-              border-right: none;
+              //border-right: none;
             }
 
             &.hover {
-              margin-right: -2px;
+              //margin-right: -2px;
               z-index:      10;
             }
           }
@@ -54,11 +54,11 @@ $swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
             border-radius: 0 !important;
 
             &:not(.hover) {
-              border-right: none;
+              //border-right: none;
             }
 
             &.hover {
-              margin-right: -2px;
+              //margin-right: -2px;
               z-index:      10;
             }
           }
