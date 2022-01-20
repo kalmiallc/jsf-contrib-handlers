@@ -72,7 +72,8 @@ interface ButtonTogglePreferences {
                       <div class="inner-tile-container">
                           <div class="icon-container rounded">
                               <div class="icon rounded"
-                                   [ngStyle]="{ 'background': getItemIconBackgroundStyle(item), 'background-size': 'cover' }"
+                                   style="background-size: cover"
+                                   [style.background-image]="'url(&quot;' + item.icon + '&quot;) no-repeat center center' | safe:'style'"
                                    matRipple>
                               </div>
                               <div class="selection-border rounded __border-color--primary"></div>
@@ -108,7 +109,8 @@ interface ButtonTogglePreferences {
                       <div class="inner-tile-large-container">
                           <div class="icon-container rounded">
                               <div class="icon rounded"
-                                   [ngStyle]="{ 'background': getItemIconBackgroundStyle(item), 'background-size': 'cover' }"
+                                   style="background-size: cover"
+                                   [style.background-image]="'url(&quot;' + item.icon + '&quot;) no-repeat center center' | safe:'style'"
                                    matRipple>
                               </div>
                               <div class="selection-border rounded __border-color--primary"></div>

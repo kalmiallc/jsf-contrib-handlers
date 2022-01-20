@@ -6,12 +6,12 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule }                                                               from '@angular/forms';
-import { ButtonToggleBuilder }                                                       from '../common/button-toggle.builder';
-import { JsfComponentsModule }                                                       from '@kalmia/jsf-app';
-import { LayoutModule }                                                              from '@angular/cdk/layout';
+import { ButtonToggleBuilder }                 from '../common/button-toggle.builder';
+import { JsfComponentsModule, JsfPipesModule } from '@kalmia/jsf-app';
+import { LayoutModule }                        from '@angular/cdk/layout';
 
 @NgModule({
-  imports        : [
+  imports: [
     CommonModule,
     FormsModule,
     JsfComponentsModule,
@@ -19,7 +19,8 @@ import { LayoutModule }                                                         
     MatFormFieldModule,
     MatIconModule,
     MatRippleModule,
-    LayoutModule
+    LayoutModule,
+    JsfPipesModule
   ],
   declarations   : [ButtonToggleComponent],
   exports        : [ButtonToggleComponent]
