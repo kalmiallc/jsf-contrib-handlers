@@ -73,7 +73,6 @@ interface ButtonTogglePreferences {
                           <div class="icon-container rounded">
                               <div class="icon rounded"
                                    [style.background]="'url(&quot;' + item.icon + '&quot;) no-repeat center center' | safe:'style'"
-                                   style="background-size: cover"
                                    matRipple>
                               </div>
                               <div class="selection-border rounded __border-color--primary"></div>
@@ -110,7 +109,6 @@ interface ButtonTogglePreferences {
                           <div class="icon-container rounded">
                               <div class="icon rounded"
                                    [style.background]="'url(&quot;' + item.icon + '&quot;) no-repeat center center' | safe:'style'"
-                                   style="background-size: cover"
                                    matRipple>
                               </div>
                               <div class="selection-border rounded __border-color--primary"></div>
