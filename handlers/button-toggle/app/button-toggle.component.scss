@@ -353,7 +353,7 @@ $swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
             box-sizing:      border-box;
             display:         flex;
             justify-content: center;
-            background-size: cover;
+            background-size: cover !important;
           }
 
           .selection-border {
